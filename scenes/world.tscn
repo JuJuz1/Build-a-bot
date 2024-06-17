@@ -3,8 +3,8 @@
 [ext_resource type="Texture2D" uid="uid://fq8swaq1w8av" path="res://graphics/icon.svg" id="1_k0lid"]
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_vgch5"]
 [ext_resource type="PackedScene" uid="uid://cfyf4okhd8q32" path="res://scenes/player.tscn" id="2_ujslp"]
-[ext_resource type="Script" path="res://scripts/player.gd" id="3_5ifw3"]
 [ext_resource type="PackedScene" uid="uid://bsvapf6532k6p" path="res://scenes/camera_3d.tscn" id="4_dfxy2"]
+[ext_resource type="PackedScene" uid="uid://c6nuieoaf3eis" path="res://scenes/mic_transcribe_2.tscn" id="5_j7676"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_8a61o"]
 
@@ -32,10 +32,14 @@ texture = ExtResource("1_k0lid")
 
 [node name="Player" parent="." instance=ExtResource("2_ujslp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0761743, 0.358924, -0.128458)
-script = ExtResource("3_5ifw3")
 
 [node name="Camera3D" parent="." instance=ExtResource("4_dfxy2")]
 transform = Transform3D(1, 0, 0, 0, 0.920129, 0.391615, 0, -0.391615, 0.920129, -0.207224, 2.49512, 4.43562)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_woufo")
+
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.353271, 0.489226, -3.22894)
+
+[node name="CaptureStreamToText" parent="Node3D" instance=ExtResource("5_j7676")]
