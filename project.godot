@@ -17,6 +17,7 @@ config/icon="res://graphics/icon.svg"
 
 [audio]
 
+buses/default_bus_layout=""
 driver/enable_input=true
 driver/mix_rate=16000
 
