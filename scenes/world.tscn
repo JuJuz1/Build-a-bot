@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://b03wvhcgh0dd"]
+[gd_scene load_steps=9 format=3 uid="uid://b03wvhcgh0dd"]
 
 [ext_resource type="Texture2D" uid="uid://fq8swaq1w8av" path="res://graphics/icon.svg" id="1_k0lid"]
+[ext_resource type="Script" path="res://scenes/world.gd" id="1_vgch5"]
 [ext_resource type="PackedScene" uid="uid://cfyf4okhd8q32" path="res://scenes/player.tscn" id="2_ujslp"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="3_5ifw3"]
 [ext_resource type="PackedScene" uid="uid://bsvapf6532k6p" path="res://scenes/camera_3d.tscn" id="4_dfxy2"]
@@ -16,6 +17,7 @@ background_color = Color(0.193065, 0.118743, 0.107039, 1)
 ambient_light_color = Color(0.774065, 0.660791, 0.550951, 1)
 
 [node name="World" type="Node3D"]
+script = ExtResource("1_vgch5")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 physics_material_override = SubResource("PhysicsMaterial_8a61o")
