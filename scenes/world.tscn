@@ -1,0 +1,39 @@
+[gd_scene load_steps=8 format=3 uid="uid://b03wvhcgh0dd"]
+
+[ext_resource type="Texture2D" uid="uid://fq8swaq1w8av" path="res://graphics/icon.svg" id="1_k0lid"]
+[ext_resource type="PackedScene" uid="uid://cfyf4okhd8q32" path="res://scenes/player.tscn" id="2_ujslp"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="3_5ifw3"]
+[ext_resource type="PackedScene" uid="uid://bsvapf6532k6p" path="res://scenes/camera_3d.tscn" id="4_dfxy2"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_8a61o"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_v7lkv"]
+size = Vector3(1, 0.0888672, 1)
+
+[sub_resource type="Environment" id="Environment_woufo"]
+background_mode = 1
+background_color = Color(0.193065, 0.118743, 0.107039, 1)
+ambient_light_color = Color(0.774065, 0.660791, 0.550951, 1)
+
+[node name="World" type="Node3D"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_8a61o")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, -0.455566, 0)
+shape = SubResource("BoxShape3D_v7lkv")
+
+[node name="Sprite3D" type="Sprite3D" parent="StaticBody3D/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.0200004, 0)
+texture = ExtResource("1_k0lid")
+
+[node name="Player" parent="." instance=ExtResource("2_ujslp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0761743, 0.358924, -0.128458)
+script = ExtResource("3_5ifw3")
+
+[node name="Camera3D" parent="." instance=ExtResource("4_dfxy2")]
+transform = Transform3D(1, 0, 0, 0, 0.920129, 0.391615, 0, -0.391615, 0.920129, -0.207224, 2.49512, 4.43562)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_woufo")
