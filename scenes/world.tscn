@@ -43,3 +43,5 @@ environment = SubResource("Environment_woufo")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.353271, 0.489226, -3.22894)
 
 [node name="CaptureStreamToText" parent="Node3D" instance=ExtResource("5_j7676")]
+
+[connection signal="updated_player" from="Node3D/CaptureStreamToText" to="Player" method="_on_capture_stream_to_text_updated_player"]

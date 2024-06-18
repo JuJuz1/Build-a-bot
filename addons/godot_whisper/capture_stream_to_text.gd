@@ -3,6 +3,7 @@ class_name CaptureStreamToText
 extends SpeechToText
 
 signal transcribed_msg(is_partial, new_text)
+signal transcribed(full_text)
 
 # For Traditional Chinese "以下是普通話的句子。"
 # For Simplified Chinese "以下是普通话的句子。"
@@ -103,6 +104,8 @@ func transcribe_thread():
 		last_token_count = tokens.size()
 		#print(text)
 		print(full_text)
+		call_deferred("emit_signal", "transcribed", full_text)
+		full_text = ""
 		print("Transcribe " + str(time_processing/ 1000.0) + " s")
 		# Sleep remaining time
 		var interval_sleep = transcribe_interval * 1000 - time_processing

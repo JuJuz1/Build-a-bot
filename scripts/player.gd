@@ -29,3 +29,10 @@ func _physics_process(delta):
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
 	move_and_slide()
+
+
+## text which is transcribed in mic_transcribe scene
+func _on_capture_stream_to_text_updated_player(text : String):
+	#print(text)
+	if text.contains("jump") and is_on_floor():
+		velocity.y = JUMP_VELOCITY

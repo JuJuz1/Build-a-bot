@@ -27,9 +27,11 @@ script = ExtResource("1_yg1jb")
 
 [node name="MicPlayer" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamMicrophone_rhq81")
+volume_db = -5.0
 
 [node name="AudioPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_1h00v")
+volume_db = -7.0
 autoplay = true
 
 [node name="Panel" type="Panel" parent="."]
@@ -87,4 +89,6 @@ script = ExtResource("7_blsvl")
 transcribe_interval = 0.2
 maximum_sentence_time = 10
 
+[connection signal="updated" from="Panel/RichTextLabel" to="." method="_on_rich_text_label_updated"]
 [connection signal="toggled" from="HBoxContainer/MicToggle" to="HBoxContainer/MicToggle" method="_on_toggled"]
+[connection signal="transcribed" from="CaptureStreamToText" to="." method="_on_capture_stream_to_text_transcribed"]
