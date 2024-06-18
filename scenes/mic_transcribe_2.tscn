@@ -87,6 +87,7 @@ text = "Enable Microphone in Project Settings -> audio/driver/enable_input"
 language_model = ExtResource("6_5l644")
 script = ExtResource("7_blsvl")
 transcribe_interval = 0.2
+minimum_sentence_time = 1
 maximum_sentence_time = 10
 
 [connection signal="updated" from="Panel/Label" to="." method="_on_rich_text_label_updated"]

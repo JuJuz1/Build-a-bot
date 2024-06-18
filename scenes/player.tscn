@@ -13,3 +13,6 @@ shape = SubResource("CapsuleShape3D_3ufp4")
 
 [node name="Sprite3D" type="Sprite3D" parent="CollisionShape3D"]
 texture = ExtResource("1_x4j65")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
