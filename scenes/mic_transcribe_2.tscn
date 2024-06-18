@@ -39,6 +39,13 @@ custom_minimum_size = Vector2(400, 400)
 layout_mode = 2
 
 [node name="Label" type="RichTextLabel" parent="Panel"]
+layout_mode = 0
+offset_right = 675.0
+offset_bottom = 397.0
+script = ExtResource("4_prqad")
+
+[node name="Label_og" type="RichTextLabel" parent="Panel"]
+visible = false
 custom_minimum_size = Vector2(400, 400)
 layout_mode = 1
 anchors_preset = 15
@@ -52,13 +59,6 @@ text = "Time: 0s
 Time to process: 0s
 ..."
 script = ExtResource("3_ex4db")
-
-[node name="RichTextLabel" type="RichTextLabel" parent="Panel"]
-visible = false
-layout_mode = 0
-offset_right = 675.0
-offset_bottom = 397.0
-script = ExtResource("4_prqad")
 
 [node name="Label" type="RichTextLabel" parent="."]
 layout_mode = 2
@@ -89,6 +89,6 @@ script = ExtResource("7_blsvl")
 transcribe_interval = 0.2
 maximum_sentence_time = 10
 
-[connection signal="updated" from="Panel/RichTextLabel" to="." method="_on_rich_text_label_updated"]
+[connection signal="updated" from="Panel/Label" to="." method="_on_rich_text_label_updated"]
 [connection signal="toggled" from="HBoxContainer/MicToggle" to="HBoxContainer/MicToggle" method="_on_toggled"]
 [connection signal="transcribed" from="CaptureStreamToText" to="." method="_on_capture_stream_to_text_transcribed"]
