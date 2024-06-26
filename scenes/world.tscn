@@ -3,7 +3,6 @@
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_vgch5"]
 [ext_resource type="PackedScene" uid="uid://d37wdrgeicey" path="res://scenes/floor_test.tscn" id="2_k0x7a"]
 [ext_resource type="PackedScene" uid="uid://cfyf4okhd8q32" path="res://scenes/player.tscn" id="2_ujslp"]
-[ext_resource type="PackedScene" uid="uid://bsvapf6532k6p" path="res://scenes/camera_3d.tscn" id="4_dfxy2"]
 [ext_resource type="PackedScene" uid="uid://cgs7ieip4qd86" path="res://scenes/item_dropper.tscn" id="5_4otuo"]
 [ext_resource type="PackedScene" uid="uid://c6nuieoaf3eis" path="res://scenes/mic_transcribe_2.tscn" id="5_j7676"]
 [ext_resource type="PackedScene" uid="uid://bq17rj4loiir4" path="res://scenes/item.tscn" id="8_j37s6"]
@@ -11,15 +10,14 @@
 [sub_resource type="Environment" id="Environment_woufo"]
 background_color = Color(1, 1, 1, 1)
 
+[sub_resource type="Environment" id="Environment_pwit6"]
+
 [node name="World" type="Node3D"]
 script = ExtResource("1_vgch5")
 
 [node name="Player" parent="." instance=ExtResource("2_ujslp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
 collision_layer = 2
-
-[node name="Camera3D" parent="." instance=ExtResource("4_dfxy2")]
-transform = Transform3D(1, 0, 0, 0, 0.920129, 0.391615, 0, -0.391615, 0.920129, 0.392497, 2.49512, 4.43562)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_woufo")
@@ -52,11 +50,15 @@ transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 1.00008)
 [node name="StaticBody3D9" parent="Floor" instance=ExtResource("2_k0x7a")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 1, 0, 1.00008)
 
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.855093, 0.518475, 0, -0.518475, 0.855093, 0, 2.77039, 3.2936)
+environment = SubResource("Environment_pwit6")
+
 [node name="ItemDropper" parent="." instance=ExtResource("5_4otuo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.24533, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
 
 [node name="Item" parent="." instance=ExtResource("8_j37s6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.02245, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
 
 [node name="SpeechToText" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.353271, 0.489226, -3.22894)

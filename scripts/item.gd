@@ -16,7 +16,7 @@ func _process(_delta):
 	pass
 
 
-## Destroy self
+## Destroy self when colliding with floor
 func _on_area_3d_destroy():
 	""" 
 	var tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
@@ -24,8 +24,11 @@ func _on_area_3d_destroy():
 	tween.finished.connect(func() -> void: queue_free())
 	"""
 	queue_free()
+	print("destroyed")
 
 
 ## Send signal to player
 func _on_area_3d_item_pickup():
 	picked_up.emit(self)
+	queue_free()
+	print("picked up")

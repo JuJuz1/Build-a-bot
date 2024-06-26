@@ -14,6 +14,6 @@ func _ready():
 ## Instantiate the item and add it as a child to the tree
 func drop_item() -> void:
 	var item_instance = item.instantiate()
-	item_instance.position = Vector3(randi_range(-1, 1), 5, randi_range(-1, 1))
+	item_instance.position = Vector3(randi_range(-1, 1), position.y, randi_range(-1, 1))
 	get_tree().root.add_child(item_instance)
 	timer_item_drop.start(randf_range(0.5, 2))

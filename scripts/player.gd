@@ -10,17 +10,24 @@ const TIME_FOR_ACTION: float = 1.0
 ## Size for the grid, how much the player will move with each movement action
 const GRID_SIZE: int = 1
 
+## Current points
+var points: int = 0
+
 func _ready() -> void:
 	timer_action.wait_time = TIME_FOR_ACTION
 	timer_action.timeout.connect(enable_action)
 
 
+## Enable action to control player
 func enable_action() -> void:
 	action_available = true
 	print(action_available)
 
 
-func _on_item_picked_up(item: RigidBody3D):
+## When picking up item
+func _on_item_picked_up(item: RigidBody3D) -> void:
+	points += 5
+	$UI.update_points(points)
 	print(item)
 
 
