@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cgs7ieip4qd86"]
+
+[ext_resource type="Script" path="res://scripts/item_dropper.gd" id="1_pt0vk"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6ypb6"]
+size = Vector3(3, 0, 3)
+
+[node name="ItemDropper" type="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.71682, 0)
+script = ExtResource("1_pt0vk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_6ypb6")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true

@@ -1,13 +1,13 @@
 extends CharacterBody3D
+class_name Player
 ## Player character
-
 
 ## Used to limit how many actions the player can perform in a time limit
 var action_available: bool = true
 const TIME_FOR_ACTION: float = 1.0
 @onready var timer_action: Timer = $Timer
 
-## Size for the grid, how much the player will move with each action
+## Size for the grid, how much the player will move with each movement action
 const GRID_SIZE: int = 1
 
 func _ready() -> void:
@@ -20,7 +20,11 @@ func enable_action() -> void:
 	print(action_available)
 
 
-## Performing character actions based on transcribed speech to text
+func _on_item_picked_up(item: RigidBody3D):
+	print(item)
+
+
+## Performing player character actions based on the transcribed speech to text
 func _on_capture_stream_to_text_updated_player(text : String) -> void:
 	# Parsing and modifying the text not needed atm
 	# Everything to lower case
@@ -37,7 +41,7 @@ func _on_capture_stream_to_text_updated_player(text : String) -> void:
 	# This happens only if text has 1 word
 	#text = text.substr(0, index)
 	if action_available:
-		var made_action: bool = false
+		var action_made: bool = false
 		# Healing increases the amount of time to make the next action
 		var action_time: int = 1
 		print(position)
@@ -46,36 +50,37 @@ func _on_capture_stream_to_text_updated_player(text : String) -> void:
 			# Slow down the dropping items
 			#signal.time.emit() to world.gd
 			print("time")
-			made_action = true
+			action_made = true
 		elif text.contains("heal") or text.contains("heel"):
 			# Start a timer to heal the bot (recharge battery)
 			print("heal")
 			action_time = 3
-			made_action = true
+			action_made = true
 		elif text.contains("left"):
 			# Check for position to stay in the 3x3 grid
 			if position.x == -GRID_SIZE:
 				return
 			position -= Vector3(GRID_SIZE, 0, 0)
-			made_action = true
+			action_made = true
 		elif text.contains("right"):
 			if position.x == GRID_SIZE:
 				return
 			position += Vector3(GRID_SIZE, 0, 0)
-			made_action = true
+			action_made = true
 		elif text.contains("up"):
 			if position.z == -GRID_SIZE:
 				return
 			position -= Vector3(0, 0, GRID_SIZE)
-			made_action = true
+			action_made = true
 		elif text.contains("down"):
 			if position.z == GRID_SIZE:
 				return
 			position += Vector3(0, 0, GRID_SIZE)
-			made_action = true
+			action_made = true
 	
-		if made_action:
+		if action_made:
 			# Restart action timer to prevent making actions too fast
 			action_available = false
 			# If healed action_time == 3 else 1
 			timer_action.start(action_time)
+	
