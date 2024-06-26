@@ -1,8 +1,6 @@
 extends CharacterBody3D
 ## Player character
 
-const SPEED = 5.0
-const JUMP_VELOCITY = 4.5
 
 ## Used to limit how many actions the player can perform in a time limit
 var action_available: bool = true
@@ -22,41 +20,15 @@ func enable_action() -> void:
 	print(action_available)
 
 
-"""
-func _physics_process(delta) -> void:
-	# Add the gravity.
-	if not is_on_floor():
-		velocity += get_gravity() * delta
-	
-	# Handle jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
-	
-	#if speech "jump":
-		# velocity.y = JUMP_VELOCITY
-	
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var input_dir = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	if direction:
-		velocity.x = direction.x * SPEED
-		velocity.z = direction.z * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.z = move_toward(velocity.z, 0, SPEED)
-	
-	move_and_slide()
-"""
-
-
 ## Performing character actions based on transcribed speech to text
 func _on_capture_stream_to_text_updated_player(text : String) -> void:
-	print(text)
-	#if not action_available or text.is_empty():
-		#return
+	# Parsing and modifying the text not needed atm
 	# Everything to lower case
 	text = text.to_lower()
+	print(text)
+	
+	#if not action_available or text.is_empty():
+		#return
 	# Remove first space
 	#text = text.substr(1, text.length())
 	# Find the first index of a space
@@ -66,12 +38,22 @@ func _on_capture_stream_to_text_updated_player(text : String) -> void:
 	#text = text.substr(0, index)
 	if action_available:
 		var made_action: bool = false
+		# Healing increases the amount of time to make the next action
+		var action_time: int = 1
 		print(position)
-		if text.contains("jump") and is_on_floor():
-			velocity.y = JUMP_VELOCITY
+		# TODO: Animationplayer for all the actions
+		if text.contains("time"):
+			# Slow down the dropping items
+			#signal.time.emit() to world.gd
+			print("time")
+			made_action = true
+		elif text.contains("heal") or text.contains("heel"):
+			# Start a timer to heal the bot (recharge battery)
+			print("heal")
+			action_time = 3
 			made_action = true
 		elif text.contains("left"):
-			# TODO: Animationplayer for all the movement related stuff
+			# Check for position to stay in the 3x3 grid
 			if position.x == -GRID_SIZE:
 				return
 			position -= Vector3(GRID_SIZE, 0, 0)
@@ -95,4 +77,5 @@ func _on_capture_stream_to_text_updated_player(text : String) -> void:
 		if made_action:
 			# Restart action timer to prevent making actions too fast
 			action_available = false
-			timer_action.start()
+			# If healed action_time == 3 else 1
+			timer_action.start(action_time)
