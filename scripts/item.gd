@@ -27,8 +27,10 @@ func _on_area_3d_destroy():
 	print("destroyed")
 
 
-## Send signal to player
-func _on_area_3d_item_pickup():
+## Connect signal and send it to player
+func _on_area_3d_item_pickup(body: CharacterBody3D):
+	# Not sure if this is a good practice (connecting signals runtime)
+	picked_up.connect(body._on_item_picked_up)
 	picked_up.emit(self)
 	queue_free()
 	print("picked up")

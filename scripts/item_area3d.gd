@@ -6,6 +6,6 @@ signal destroy
 
 func _on_body_entered(body):
 	if body is Player:
-		item_pickup.emit()
+		item_pickup.emit(body)
 	else:
 		destroy.emit()
