@@ -29,9 +29,9 @@ func _get_configuration_warnings():
 ## Using dynamic audio context speeds up transcribing but may result in mistakes.
 @export var use_dynamic_audio_context := true
 ## How much time has to pass in seconds until we can consider a sentence.
-@export var minimum_sentence_time := 3
+@export var minimum_sentence_time: float = 3
 ## Maximum time a sentence can have in seconds.
-@export var maximum_sentence_time := 15
+@export var maximum_sentence_time: float = 15
 ## How many tokens it's allowed to halucinate. Can provide useful info as it talks, but too much can provide useless text.
 @export var halucinating_count := 1
 ## The record bus has to have a AudioEffectCapture at index specified by [member audio_effect_capture_index]
@@ -103,10 +103,10 @@ func transcribe_thread():
 		call_deferred("emit_signal", "transcribed_msg", finish_sentence, full_text)
 		last_token_count = tokens.size()
 		#print(text)
-		#print(full_text)
+		print(full_text)
 		call_deferred("emit_signal", "transcribed", full_text)
 		full_text = ""
-		#print("Transcribe " + str(time_processing/ 1000.0) + " s")
+		print("Transcribe " + str(time_processing/ 1000.0) + " s")
 		# Sleep remaining time
 		var interval_sleep = transcribe_interval * 1000 - time_processing
 		if interval_sleep > 0:

@@ -31,10 +31,10 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.0
 texture = ExtResource("1_k0lid")
 
 [node name="Player" parent="." instance=ExtResource("2_ujslp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0761743, 0.358924, -0.128458)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
 
 [node name="Camera3D" parent="." instance=ExtResource("4_dfxy2")]
-transform = Transform3D(1, 0, 0, 0, 0.920129, 0.391615, 0, -0.391615, 0.920129, -0.207224, 2.49512, 4.43562)
+transform = Transform3D(1, 0, 0, 0, 0.920129, 0.391615, 0, -0.391615, 0.920129, 0.392497, 2.49512, 4.43562)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_woufo")

@@ -6,11 +6,14 @@ const JUMP_VELOCITY = 4.5
 
 ## Used to limit how many actions the player can perform in a time limit
 var action_available: bool = true
-const time_for_action: float = 2.0
+const TIME_FOR_ACTION: float = 1.0
 @onready var timer_action: Timer = $Timer
 
+## Size for the grid, how much the player will move with each action
+const GRID_SIZE: int = 1
+
 func _ready() -> void:
-	timer_action.wait_time = time_for_action
+	timer_action.wait_time = TIME_FOR_ACTION
 	timer_action.timeout.connect(enable_action)
 
 
@@ -19,6 +22,7 @@ func enable_action() -> void:
 	print(action_available)
 
 
+"""
 func _physics_process(delta) -> void:
 	# Add the gravity.
 	if not is_on_floor():
@@ -41,29 +45,54 @@ func _physics_process(delta) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
-
+	
 	move_and_slide()
+"""
 
 
 ## Performing character actions based on transcribed speech to text
-func _on_capture_stream_to_text_updated_player(text : String):
+func _on_capture_stream_to_text_updated_player(text : String) -> void:
 	print(text)
-	if not action_available or text.is_empty():
-		return
+	#if not action_available or text.is_empty():
+		#return
 	# Everything to lower case
 	text = text.to_lower()
 	# Remove first space
-	text = text.substr(1, text.length())
+	#text = text.substr(1, text.length())
 	# Find the first index of a space
-	var index: int = text.findn(" ")
+	#var index: int = text.findn(" ")
 	# Take the first word, if index is -1, returns the original string back
 	# This happens only if text has 1 word
-	text = text.substr(0, index)
+	#text = text.substr(0, index)
 	if action_available:
-		action_available = false
-		timer_action.start()
+		var made_action: bool = false
+		print(position)
 		if text.contains("jump") and is_on_floor():
 			velocity.y = JUMP_VELOCITY
-			print(text)
-		#if text.contains("left") and is_on_floor():
-			#velocity.x = SPEED
+			made_action = true
+		elif text.contains("left"):
+			# TODO: Animationplayer for all the movement related stuff
+			if position.x == -GRID_SIZE:
+				return
+			position -= Vector3(GRID_SIZE, 0, 0)
+			made_action = true
+		elif text.contains("right"):
+			if position.x == GRID_SIZE:
+				return
+			position += Vector3(GRID_SIZE, 0, 0)
+			made_action = true
+		elif text.contains("up"):
+			if position.z == -GRID_SIZE:
+				return
+			position -= Vector3(0, 0, GRID_SIZE)
+			made_action = true
+		elif text.contains("down"):
+			if position.z == GRID_SIZE:
+				return
+			position += Vector3(0, 0, GRID_SIZE)
+			made_action = true
+	
+		if made_action:
+			# Restart action timer to prevent making actions too fast
+			action_available = false
+			timer_action.start()
