@@ -3,18 +3,9 @@ extends RigidBody3D
 
 signal picked_up
 
-#var identifier: String? = null -> _ready()
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	# Identify what item type self is
-	pass
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
-	pass
-
+## Constants that are applied to player when picking up an item
+@export var health: int
+@export var points: int
 
 ## Destroy self when colliding with floor
 func _on_area_3d_destroy():
@@ -29,7 +20,7 @@ func _on_area_3d_destroy():
 
 ## Connect signal and send it to player
 func _on_area_3d_item_pickup(body: CharacterBody3D):
-	# Not sure if this is a good practice (connecting signals runtime)
+	# Not sure if this is good practice (connecting signals in runtime)
 	picked_up.connect(body._on_item_picked_up)
 	picked_up.emit(self)
 	queue_free()

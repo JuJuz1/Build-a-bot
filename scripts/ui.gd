@@ -6,9 +6,10 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 
-## Update points to UI
-func update_points(points: int) -> void:
-	$MarginContainer/VBoxContainer/Label.text = "Points: " + str(points)
+## Update UI labels
+func update_labels(points: int, health: int) -> void:
+	$MarginContainer/VBoxContainer/LabelPoints.text = "Points: " + str(points)
+	$MarginContainer/VBoxContainer/LabelHealth.text = "Health: " + str(health)
 
 
 ## Update battery amount

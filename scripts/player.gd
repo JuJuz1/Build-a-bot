@@ -10,7 +10,8 @@ const TIME_FOR_ACTION: float = 1.0
 ## Size for the grid (one tile), how much the player will move with each movement action
 const GRID_SIZE: float = 3
 
-## Current point count
+## Current health and point count
+var health: int = 100
 var points: int = 0
 
 func _ready() -> void:
@@ -26,9 +27,10 @@ func enable_action() -> void:
 
 
 ## When picking up item
-func _on_item_picked_up(_item: RigidBody3D) -> void:
-	points += 5
-	$UI.update_points(points)
+func _on_item_picked_up(item: RigidBody3D) -> void:
+	health += item.health
+	points += item.points
+	$UI.update_labels(points, health)
 
 
 ## Performing player character actions based on the transcribed speech to text
@@ -69,7 +71,7 @@ func _on_capture_stream_to_text_updated_player(text : String) -> void:
 				return
 			#position -= Vector3(GRID_SIZE, 0, 0)
 			# Create a tween to tween position
-			var tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC).set_parallel(true)
+			var tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
 			tween.tween_property(self, "position:x", position.x - GRID_SIZE, 0.3)
 		elif text.contains("right"):
 			if position.x == GRID_SIZE:
