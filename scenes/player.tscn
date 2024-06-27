@@ -155,7 +155,7 @@ text = "Points: 0"
 [node name="LabelHealth" type="Label" parent="UI/MarginContainer/VBoxContainer"]
 use_parent_material = true
 layout_mode = 2
-text = "Health: 100"
+text = "Health: 30"
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="UI/MarginContainer/VBoxContainer"]
 use_parent_material = true

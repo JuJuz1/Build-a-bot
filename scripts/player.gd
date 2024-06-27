@@ -10,11 +10,12 @@ const TIME_FOR_ACTION: float = 1.0
 ## Size for the grid (one tile), how much the player will move with each movement action
 const GRID_SIZE: float = 3
 
-## Current health and point count
-var health: int = 100
+## Current point count and health
 var points: int = 0
+var health: int = 30
 
 func _ready() -> void:
+	$UI.update_labels(points, health)
 	timer_action.wait_time = TIME_FOR_ACTION
 	timer_action.timeout.connect(enable_action)
 
@@ -52,19 +53,25 @@ func _on_capture_stream_to_text_updated_player(text : String) -> void:
 	if action_available:
 		# Presume to make an action
 		var action_made: bool = true
-		# Healing increases the amount of time to make the next action
+		# If making a special action (time or heal), then don't consume battery
+		var action_is_special: bool = false
+		# Cooldown for next action
 		var action_time: int = 1
 		print(position)
 		# TODO: Animationplayer for all the actions
 		if text.contains("time"):
 			# Slow down the dropping items
 			#signal.time.emit() to world.gd
+			action_is_special = true
 			print("time")
 		# Tiny model couldn't recognise this one very well
 		elif text.contains("heal") or text.contains("heel"):
 			# Start a timer to heal the bot (recharge battery)
-			print("heal")
+			
+			# Healing increases the amount of time to make the next action
 			action_time = 3
+			action_is_special = true
+			print("heal")
 		elif text.contains("left"):
 			# Check for position to stay in the 3x3 grid
 			if position.x == -GRID_SIZE:
@@ -92,9 +99,15 @@ func _on_capture_stream_to_text_updated_player(text : String) -> void:
 			action_made = false
 	
 		if action_made:
+			if not action_is_special:
+				health -= 1
+				if health <= 0:
+					#healing_start()
+					queue_free()
 			# Restart action timer to prevent making actions too fast
 			action_available = false
 			$UI.update_listening(action_available)
+			$UI.update_labels(points, health)
 			# If healed action_time == 3 else 1
 			timer_action.start(action_time)
 	

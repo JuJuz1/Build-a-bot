@@ -12,11 +12,6 @@ func update_labels(points: int, health: int) -> void:
 	$MarginContainer/VBoxContainer/LabelHealth.text = "Health: " + str(health)
 
 
-## Update battery amount
-func update_battery() -> void:
-	pass
-
-
 ## Update a simple texture canvasitem to tell if the robot is listening
 func update_listening(listening: bool) -> void:
 	if listening:

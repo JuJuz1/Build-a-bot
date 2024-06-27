@@ -22,7 +22,7 @@ func _ready():
 	items.append(poison)
 	
 	timer_item_drop.timeout.connect(drop_item)
-	await get_tree().create_timer(5).timeout
+	await get_tree().create_timer(2).timeout
 	timer_item_drop.start()
 
 
