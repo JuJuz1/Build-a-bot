@@ -7,10 +7,10 @@ var action_available: bool = true
 const TIME_FOR_ACTION: float = 1.0
 @onready var timer_action: Timer = $Timer
 
-## Size for the grid, how much the player will move with each movement action
-const GRID_SIZE: int = 1
+## Size for the grid (one tile), how much the player will move with each movement action
+const GRID_SIZE: float = 3
 
-## Current points
+## Current point count
 var points: int = 0
 
 func _ready() -> void:
@@ -21,6 +21,7 @@ func _ready() -> void:
 ## Enable action to control player
 func enable_action() -> void:
 	action_available = true
+	$UI.update_listening(action_available)
 	print(action_available)
 
 
@@ -57,6 +58,7 @@ func _on_capture_stream_to_text_updated_player(text : String) -> void:
 			# Slow down the dropping items
 			#signal.time.emit() to world.gd
 			print("time")
+		# Tiny model couldn't recognise this one very well
 		elif text.contains("heal") or text.contains("heel"):
 			# Start a timer to heal the bot (recharge battery)
 			print("heal")
@@ -65,25 +67,32 @@ func _on_capture_stream_to_text_updated_player(text : String) -> void:
 			# Check for position to stay in the 3x3 grid
 			if position.x == -GRID_SIZE:
 				return
-			position -= Vector3(GRID_SIZE, 0, 0)
+			#position -= Vector3(GRID_SIZE, 0, 0)
+			# Create a tween to tween position
+			var tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC).set_parallel(true)
+			tween.tween_property(self, "position:x", position.x - GRID_SIZE, 0.3)
 		elif text.contains("right"):
 			if position.x == GRID_SIZE:
 				return
-			position += Vector3(GRID_SIZE, 0, 0)
+			var tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
+			tween.tween_property(self, "position:x", position.x + GRID_SIZE, 0.3)
 		elif text.contains("up"):
 			if position.z == -GRID_SIZE:
 				return
-			position -= Vector3(0, 0, GRID_SIZE)
+			var tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
+			tween.tween_property(self, "position:z", position.z - GRID_SIZE, 0.3)
 		elif text.contains("down"):
 			if position.z == GRID_SIZE:
 				return
-			position += Vector3(0, 0, GRID_SIZE)
+			var tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
+			tween.tween_property(self, "position:z", position.z + GRID_SIZE, 0.3)
 		else: # Only if the player doesn't make any action
 			action_made = false
 	
 		if action_made:
 			# Restart action timer to prevent making actions too fast
 			action_available = false
+			$UI.update_listening(action_available)
 			# If healed action_time == 3 else 1
 			timer_action.start(action_time)
 	

@@ -1,11 +1,106 @@
-[gd_scene load_steps=6 format=3 uid="uid://cfyf4okhd8q32"]
+[gd_scene load_steps=14 format=3 uid="uid://cfyf4okhd8q32"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_1tpsb"]
-[ext_resource type="Texture2D" uid="uid://fq8swaq1w8av" path="res://graphics/icon.svg" id="1_x4j65"]
-[ext_resource type="Script" path="res://scenes/ui.gd" id="3_hid0y"]
+[ext_resource type="Script" path="res://scripts/ui.gd" id="3_hid0y"]
 [ext_resource type="Material" uid="uid://bhem2fdr0jrrt" path="res://materials/material_unshaded.tres" id="4_5hf1d"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3ufp4"]
+height = 2.13089
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_hdgoa"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rjo5o"]
+albedo_color = Color(0.827489, 0.361046, 0.400257, 1)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_jtn1j"]
+
+[sub_resource type="Animation" id="Animation_ap101"]
+resource_name = "left"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.133333, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0.3, 0), Vector3(-1.5, 1.3, 0), Vector3(-3, 0.3, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_nsbv1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_54nfl"]
+resource_name = "right"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.133333, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0.3, 0), Vector3(1.5, 1.3, 0), Vector3(3, 0.3, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_luwqr"]
+resource_name = "up"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1332, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0.3, 0), Vector3(0, 1.3, -1.5), Vector3(0, 0.3, -3)]
+}
+
+[sub_resource type="Animation" id="Animation_ks61u"]
+resource_name = "down"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.133333, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0.3, 0), Vector3(0, 1.3, 1.5), Vector3(0, 0.3, 3)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kflnn"]
+_data = {
+"RESET": SubResource("Animation_nsbv1"),
+"down": SubResource("Animation_ks61u"),
+"left": SubResource("Animation_ap101"),
+"right": SubResource("Animation_54nfl"),
+"up": SubResource("Animation_luwqr")
+}
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_1tpsb")
@@ -13,21 +108,33 @@ script = ExtResource("1_1tpsb")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_3ufp4")
 
-[node name="Sprite3D" type="Sprite3D" parent="CollisionShape3D"]
-texture = ExtResource("1_x4j65")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_hdgoa")
+surface_material_override/0 = SubResource("StandardMaterial3D_rjo5o")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
 
 [node name="UI" type="Control" parent="."]
+material = ExtResource("4_5hf1d")
 layout_mode = 3
 anchors_preset = 0
 offset_right = 53.0
 offset_bottom = 24.0
 script = ExtResource("3_hid0y")
 
+[node name="TextureRect" type="TextureRect" parent="UI"]
+use_parent_material = true
+layout_mode = 2
+offset_left = 450.0
+offset_top = 529.0
+offset_right = 673.0
+offset_bottom = 621.0
+texture = SubResource("CanvasTexture_jtn1j")
+
 [node name="MarginContainer" type="MarginContainer" parent="UI"]
+use_parent_material = true
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -37,12 +144,19 @@ theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/MarginContainer"]
+use_parent_material = true
 layout_mode = 2
 
 [node name="Label" type="Label" parent="UI/MarginContainer/VBoxContainer"]
-material = ExtResource("4_5hf1d")
+use_parent_material = true
 layout_mode = 2
 text = "Points: 0"
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="UI/MarginContainer/VBoxContainer"]
+use_parent_material = true
 layout_mode = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_kflnn")
+}

@@ -15,7 +15,6 @@ background_color = Color(1, 1, 1, 1)
 script = ExtResource("1_vgch5")
 
 [node name="Player" parent="." instance=ExtResource("2_ujslp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
 collision_layer = 2
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -23,38 +22,38 @@ environment = SubResource("Environment_woufo")
 
 [node name="Floor" type="Node" parent="."]
 
-[node name="StaticBody3D" parent="Floor" instance=ExtResource("2_k0x7a")]
+[node name="Floor" parent="Floor" instance=ExtResource("2_k0x7a")]
 
-[node name="StaticBody3D2" parent="Floor" instance=ExtResource("2_k0x7a")]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 1, 0, 0)
+[node name="Floor2" parent="Floor" instance=ExtResource("2_k0x7a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 0)
 
-[node name="StaticBody3D3" parent="Floor" instance=ExtResource("2_k0x7a")]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 1, 0, -0.999917)
+[node name="Floor3" parent="Floor" instance=ExtResource("2_k0x7a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -3)
 
-[node name="StaticBody3D4" parent="Floor" instance=ExtResource("2_k0x7a")]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, -0.999917)
+[node name="Floor4" parent="Floor" instance=ExtResource("2_k0x7a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
 
-[node name="StaticBody3D5" parent="Floor" instance=ExtResource("2_k0x7a")]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -1, 0, -0.999917)
+[node name="Floor5" parent="Floor" instance=ExtResource("2_k0x7a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -3)
 
-[node name="StaticBody3D6" parent="Floor" instance=ExtResource("2_k0x7a")]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -1, 0, 8.32081e-05)
+[node name="Floor6" parent="Floor" instance=ExtResource("2_k0x7a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 0)
 
-[node name="StaticBody3D7" parent="Floor" instance=ExtResource("2_k0x7a")]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -1, 0, 1.00008)
+[node name="Floor7" parent="Floor" instance=ExtResource("2_k0x7a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 3)
 
-[node name="StaticBody3D8" parent="Floor" instance=ExtResource("2_k0x7a")]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 1.00008)
+[node name="Floor8" parent="Floor" instance=ExtResource("2_k0x7a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
 
-[node name="StaticBody3D9" parent="Floor" instance=ExtResource("2_k0x7a")]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 1, 0, 1.00008)
+[node name="Floor9" parent="Floor" instance=ExtResource("2_k0x7a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 3)
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.855093, 0.518475, 0, -0.518475, 0.855093, 0, 2.77039, 3.2936)
+transform = Transform3D(1, 0, 0, 0, 0.855093, 0.518475, 0, -0.518475, 0.855093, 0, 5.75768, 9.14844)
 environment = SubResource("Environment_pwit6")
 
 [node name="ItemDropper" parent="." instance=ExtResource("5_4otuo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, 0)
 
 [node name="SpeechToText" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.353271, 0.489226, -3.22894)
