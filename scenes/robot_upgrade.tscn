@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3 uid="uid://dq648voq8pi7w"]
+
+[ext_resource type="Script" path="res://scripts/item.gd" id="1_m18rv"]
+[ext_resource type="Script" path="res://scripts/item_area3d.gd" id="2_8yjsv"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_bavpc"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nymbn"]
+albedo_color = Color(0.784419, 0.199646, 0.183654, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_43ui5"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jm3p7"]
+
+[node name="RobotUpgrade" type="RigidBody3D"]
+collision_layer = 0
+collision_mask = 0
+gravity_scale = 0.5
+script = ExtResource("1_m18rv")
+points = 20
+robot_upgrade = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_bavpc")
+surface_material_override/0 = SubResource("StandardMaterial3D_nymbn")
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 3
+script = ExtResource("2_8yjsv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_43ui5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_jm3p7")
+
+[connection signal="body_entered" from="Area3D" to="Area3D" method="_on_body_entered"]
+[connection signal="destroy" from="Area3D" to="." method="_on_area_3d_destroy"]
+[connection signal="item_pickup" from="Area3D" to="." method="_on_area_3d_item_pickup"]

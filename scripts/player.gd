@@ -14,6 +14,17 @@ const GRID_SIZE: float = 3
 var points: int = 0
 var health: int = 30
 
+## Points to tell when the robot will be upgraded (how many are needed till the next)
+var upgrade_points: int = 3
+var model_current: int = 0
+
+## Materials to test model upgrading
+const STANDARD_MATERIAL_3D_RED = preload("res://materials/standard_material3d_red.tres")
+const STANDARD_MATERIAL_3D_PURPLE = preload("res://materials/standard_material3d_purple.tres")
+
+## Dictionary to hold all the upgrade models with the corresponding stage of the robot
+var dict_models: Dictionary = {0: STANDARD_MATERIAL_3D_RED, 1: STANDARD_MATERIAL_3D_PURPLE}
+
 func _ready() -> void:
 	$UI.update_labels(points, health)
 	timer_action.wait_time = TIME_FOR_ACTION
@@ -31,7 +42,23 @@ func enable_action() -> void:
 func _on_item_picked_up(item: RigidBody3D) -> void:
 	health += item.health
 	points += item.points
+	if item.robot_upgrade:
+		upgrade_points -= 1
+		if upgrade_points <= 0:
+			upgrade()
 	$UI.update_labels(points, health)
+
+
+## Upgrades the robot's model
+func upgrade() -> void:
+	upgrade_points = 3
+	model_current += 1
+	# The dictionary's size limits the number of upgrades
+	if model_current > dict_models.size():
+		model_current = dict_models.size() - 1
+		return
+	# Access the dictionary with the new model_current variable to load the new model
+	$MeshInstance3D.set_surface_override_material(0, dict_models[model_current])
 
 
 ## Performing player character actions based on the transcribed speech to text

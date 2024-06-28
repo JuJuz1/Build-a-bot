@@ -3,9 +3,11 @@ extends RigidBody3D
 
 signal picked_up
 
-## Constants that are applied to player when picking up an item
-@export var health: int
-@export var points: int
+## Export variables make up different items without the need to create different scripts
+## Variables that are applied to the player when picking up an item
+@export var health: int ## How much health the player will lose or get
+@export var points: int ## How many points will be deducted or added
+@export var robot_upgrade: bool ## If the item is an upgrade to the robot's model
 
 ## Destroy self when colliding with floor
 func _on_area_3d_destroy():
