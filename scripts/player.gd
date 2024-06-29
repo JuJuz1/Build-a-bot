@@ -40,7 +40,7 @@ func _ready() -> void:
 	timer_healing.wait_time = TIME_FOR_HEAL
 	timer_healing.timeout.connect(heal)
 	
-	health = 0
+	#health = 0
 
 
 ## Enable action to control player

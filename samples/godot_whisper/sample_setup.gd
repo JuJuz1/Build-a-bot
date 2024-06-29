@@ -22,5 +22,6 @@ func _on_rich_text_label_updated(_text):
 	pass
 
 
+## Passes text to player
 func _on_capture_stream_to_text_transcribed(full_text):
 	updated_player.emit(full_text)

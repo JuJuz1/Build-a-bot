@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://dgo6dq5sx7l54"]
+
+[ext_resource type="PackedScene" uid="uid://c6nuieoaf3eis" path="res://scenes/mic_transcribe_2.tscn" id="1_2ntv4"]
+
+[node name="SpeechToText" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.353271, 0.489226, -3.22894)
+
+[node name="CaptureStreamToText" parent="." instance=ExtResource("1_2ntv4")]
+offset_left = -337.5
+offset_right = 337.5
