@@ -140,6 +140,18 @@ offset_right = 673.0
 offset_bottom = 621.0
 texture = SubResource("CanvasTexture_jtn1j")
 
+[node name="Quit" type="Label" parent="UI"]
+visible = false
+layout_mode = 2
+offset_left = 293.0
+offset_top = 202.0
+offset_right = 866.0
+offset_bottom = 343.0
+theme_override_font_sizes/font_size = 50
+text = "Health reached below 0
+QUITTING"
+horizontal_alignment = 1
+
 [node name="MarginContainer" type="MarginContainer" parent="UI"]
 use_parent_material = true
 layout_mode = 0

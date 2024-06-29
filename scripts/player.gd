@@ -2,6 +2,8 @@ extends CharacterBody3D
 class_name Player
 ## Player character
 
+signal death
+
 ## Used to limit how many actions the player can perform in a time limit
 var action_available: bool = true
 const TIME_FOR_ACTION: float = 1.0
@@ -37,6 +39,8 @@ func _ready() -> void:
 	
 	timer_healing.wait_time = TIME_FOR_HEAL
 	timer_healing.timeout.connect(heal)
+	
+	health = 0
 
 
 ## Enable action to control player
@@ -56,11 +60,15 @@ func heal() -> void:
 func _on_item_picked_up(item: RigidBody3D) -> void:
 	health += item.health
 	points += item.points
+	$UI.update_labels(points, health)
+	if health <= 0:
+		#queue_free()
+		death.emit()
+		$UI/Quit.show()
 	if item.robot_upgrade:
 		upgrade_points -= 1
 		if upgrade_points <= 0:
 			upgrade()
-	$UI.update_labels(points, health)
 
 
 ## Upgrades the robot's model
@@ -142,10 +150,13 @@ func _on_capture_stream_to_text_updated_player(text : String) -> void:
 		if action_made:
 			if not action_is_special:
 				health -= 1
+				$UI.update_labels(points, health)
 				timer_healing.stop()
 				if health <= 0:
 					#healing_start()
-					queue_free()
+					#queue_free()
+					death.emit()
+					$UI/Quit.show()
 			# Restart action timer to prevent making actions too fast
 			action_available = false
 			$UI.update_listening(action_available)
