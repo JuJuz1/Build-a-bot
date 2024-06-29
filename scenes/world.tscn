@@ -8,6 +8,7 @@
 
 [sub_resource type="Environment" id="Environment_woufo"]
 background_color = Color(1, 1, 1, 1)
+sdfgi_enabled = true
 
 [sub_resource type="Environment" id="Environment_pwit6"]
 
@@ -19,6 +20,11 @@ collision_layer = 2
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_woufo")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.500335, 11.9842, 0)
+light_color = Color(1, 0.981899, 0.765967, 1)
+light_energy = 2.0
 
 [node name="Floor" type="Node" parent="."]
 

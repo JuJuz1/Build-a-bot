@@ -1,11 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://cfyf4okhd8q32"]
+[gd_scene load_steps=15 format=3 uid="uid://cfyf4okhd8q32"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_1tpsb"]
-[ext_resource type="Material" uid="uid://dcklbpmca10st" path="res://materials/standard_material3d_red.tres" id="2_xko1u"]
+[ext_resource type="ArrayMesh" uid="uid://p6qbm8u41566" path="res://graphics/blender/robot_model1.obj" id="2_aueix"]
+[ext_resource type="PackedScene" uid="uid://bi2q08exsihat" path="res://graphics/blender/robot_model1.blend" id="2_uyrx7"]
 [ext_resource type="Script" path="res://scripts/ui.gd" id="3_hid0y"]
+[ext_resource type="PackedScene" uid="uid://c8ab0ocongjhk" path="res://graphics/blender/cube.tscn" id="3_mr0wl"]
 [ext_resource type="Material" uid="uid://bhem2fdr0jrrt" path="res://materials/material_unshaded.tres" id="4_5hf1d"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_hdgoa"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3ufp4"]
 height = 2.13089
@@ -103,9 +103,16 @@ _data = {
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_1tpsb")
 
+[node name="robot_model1" parent="." instance=ExtResource("2_uyrx7")]
+
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("CapsuleMesh_hdgoa")
-surface_material_override/0 = ExtResource("2_xko1u")
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+visible = false
+mesh = ExtResource("2_aueix")
+
+[node name="Cube" parent="." instance=ExtResource("3_mr0wl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0345659, -0.322265, 0.108577)
+visible = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_3ufp4")

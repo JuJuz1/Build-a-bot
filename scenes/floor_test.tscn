@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://d37wdrgeicey"]
-
-[ext_resource type="Texture2D" uid="uid://fq8swaq1w8av" path="res://graphics/icon.svg" id="1_membh"]
+[gd_scene load_steps=5 format=3 uid="uid://d37wdrgeicey"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_8a61o"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_utci5"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_od6ml"]
+albedo_color = Color(0.852155, 0.42585, 0.873917, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_v7lkv"]
 size = Vector3(1, 0.0888672, 1)
@@ -10,10 +13,11 @@ size = Vector3(1, 0.0888672, 1)
 [node name="Floor" type="StaticBody3D"]
 physics_material_override = SubResource("PhysicsMaterial_8a61o")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, -0.455566, 0)
-shape = SubResource("BoxShape3D_v7lkv")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.5, 0, 0, 0, 1, 0, 0, 0, 1.5, 0, -0.420938, 0)
+mesh = SubResource("PlaneMesh_utci5")
+surface_material_override/0 = SubResource("StandardMaterial3D_od6ml")
 
-[node name="Sprite3D" type="Sprite3D" parent="CollisionShape3D"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
-texture = ExtResource("1_membh")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, -0.455566, 0)
+shape = SubResource("BoxShape3D_v7lkv")
