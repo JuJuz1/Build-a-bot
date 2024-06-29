@@ -110,9 +110,11 @@ surface_material_override/0 = ExtResource("2_xko1u")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_3ufp4")
 
-[node name="Timer" type="Timer" parent="."]
+[node name="TimerAction" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
+
+[node name="TimerHealing" type="Timer" parent="."]
 
 [node name="UI" type="Control" parent="."]
 material = ExtResource("4_5hf1d")

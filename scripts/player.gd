@@ -5,7 +5,12 @@ class_name Player
 ## Used to limit how many actions the player can perform in a time limit
 var action_available: bool = true
 const TIME_FOR_ACTION: float = 1.0
-@onready var timer_action: Timer = $Timer
+@onready var timer_action: Timer = $TimerAction
+
+## Time it takes to start healing, cycle length (same) and healing amount
+const TIME_FOR_HEAL: float = 2.0
+const HEAL_AMOUNT: int = 1
+@onready var timer_healing: Timer = $TimerHealing
 
 ## Size for the grid (one tile), how much the player will move with each movement action
 const GRID_SIZE: float = 3
@@ -28,14 +33,23 @@ var dict_models: Dictionary = {0: STANDARD_MATERIAL_3D_RED, 1: STANDARD_MATERIAL
 func _ready() -> void:
 	$UI.update_labels(points, health)
 	timer_action.wait_time = TIME_FOR_ACTION
-	timer_action.timeout.connect(enable_action)
+	timer_action.timeout.connect(action_enable)
+	
+	timer_healing.wait_time = TIME_FOR_HEAL
+	timer_healing.timeout.connect(heal)
 
 
 ## Enable action to control player
-func enable_action() -> void:
+func action_enable() -> void:
 	action_available = true
 	$UI.update_listening(action_available)
-	print(action_available)
+
+
+## Increase health when healing
+func heal() -> void:
+	health += HEAL_AMOUNT
+	print("healing")
+	$UI.update_labels(points, health)
 
 
 ## When picking up item
@@ -84,7 +98,7 @@ func _on_capture_stream_to_text_updated_player(text : String) -> void:
 		var action_is_special: bool = false
 		# Cooldown for next action
 		var action_time: int = 1
-		print(position)
+		#print(position)
 		# TODO: Animationplayer for all the actions
 		if text.contains("time"):
 			# Slow down the dropping items
@@ -93,12 +107,13 @@ func _on_capture_stream_to_text_updated_player(text : String) -> void:
 			print("time")
 		# Tiny model couldn't recognise this one very well
 		elif text.contains("heal") or text.contains("heel"):
+			if not timer_healing.is_stopped():
+				return
 			# Start a timer to heal the bot (recharge battery)
-			
+			timer_healing.start()
 			# Healing increases the amount of time to make the next action
 			action_time = 3
 			action_is_special = true
-			print("heal")
 		elif text.contains("left"):
 			# Check for position to stay in the 3x3 grid
 			if position.x == -GRID_SIZE:
@@ -128,6 +143,7 @@ func _on_capture_stream_to_text_updated_player(text : String) -> void:
 		if action_made:
 			if not action_is_special:
 				health -= 1
+				timer_healing.stop()
 				if health <= 0:
 					#healing_start()
 					queue_free()
