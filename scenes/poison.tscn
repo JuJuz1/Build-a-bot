@@ -1,12 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://b42owrmhy2abx"]
+[gd_scene load_steps=6 format=3 uid="uid://b42owrmhy2abx"]
 
 [ext_resource type="Script" path="res://scripts/item.gd" id="1_2l0rn"]
+[ext_resource type="ArrayMesh" uid="uid://45hteok52mtq" path="res://graphics/blender/poison_bottle.obj" id="2_n7xxr"]
 [ext_resource type="Script" path="res://scripts/item_area3d.gd" id="2_vlwvj"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_bavpc"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nymbn"]
-albedo_color = Color(0.288848, 0.478746, 2.88785e-07, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_43ui5"]
 
@@ -21,8 +17,7 @@ health = -10
 points = -10
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("BoxMesh_bavpc")
-surface_material_override/0 = SubResource("StandardMaterial3D_nymbn")
+mesh = ExtResource("2_n7xxr")
 
 [node name="Area3D" type="Area3D" parent="."]
 collision_layer = 0

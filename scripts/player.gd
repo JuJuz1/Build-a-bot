@@ -81,7 +81,6 @@ func _on_capture_stream_to_text_updated_player(text : String) -> void:
 	# Everything to lower case
 	text = text.to_lower()
 	print(text)
-	
 	#if not action_available or text.is_empty():
 		#return
 	# Remove first space

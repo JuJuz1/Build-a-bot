@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://csnyxewlh3lik"
-path="res://.godot/imported/untitasdled.blend-8e0419bfe9447528451176232462dd4f.scn"
+uid="uid://d7n8sayi001t"
+path="res://.godot/imported/poison_bottle.blend-45429261243f520a2b88d37496f4c2de.scn"
 
 [deps]
 
-source_file="res://graphics/blender/untitasdled.blend"
-dest_files=["res://.godot/imported/untitasdled.blend-8e0419bfe9447528451176232462dd4f.scn"]
+source_file="res://graphics/blender/poison_bottle.blend"
+dest_files=["res://.godot/imported/poison_bottle.blend-45429261243f520a2b88d37496f4c2de.scn"]
 
 [params]
 
