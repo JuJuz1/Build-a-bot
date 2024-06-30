@@ -65,44 +65,44 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 3)
 
 [node name="SpeechToText" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.353271, 0.489226, -3.22894)
 
 [node name="CaptureStreamToText" parent="SpeechToText" instance=ExtResource("5_j7676")]
 visible = false
 offset_left = -337.5
 offset_right = 337.5
 
-[node name="Control" type="Control" parent="."]
+[node name="Labels" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("6_hl5vg")
 
-[node name="Label3DLeft" type="Label3D" parent="Control"]
+[node name="Label3DLeft" type="Label3D" parent="Labels"]
 transform = Transform3D(1, 0, 0, 0, 0.848048, 0.529919, 0, -0.529919, 0.848048, -11, 1, 0)
 text = "LEFT"
 font_size = 200
 script = ExtResource("6_0jkmj")
 
-[node name="Label3DRight" type="Label3D" parent="Control"]
+[node name="Label3DRight" type="Label3D" parent="Labels"]
 transform = Transform3D(1, 0, 0, 0, 0.848048, 0.529919, 0, -0.529919, 0.848048, 11, 1, 0)
 text = "RIGHT"
 font_size = 200
 script = ExtResource("6_0jkmj")
 
-[node name="Label3DUp" type="Label3D" parent="Control"]
+[node name="Label3DUp" type="Label3D" parent="Labels"]
 transform = Transform3D(1, 0, 0, 0, 0.848048, 0.529919, 0, -0.529919, 0.848048, 0, 5, -11)
 text = "UP"
 font_size = 350
 script = ExtResource("6_0jkmj")
 
-[node name="Label3DDown" type="Label3D" parent="Control"]
+[node name="Label3DDown" type="Label3D" parent="Labels"]
 transform = Transform3D(1, 0, 0, 0, 0.848048, 0.529919, 0, -0.529919, 0.848048, 0, 1, 6)
 text = "DOWN"
 font_size = 100
 script = ExtResource("6_0jkmj")
 
-[connection signal="action" from="Player" to="Control" method="_on_player_action"]
+[connection signal="action" from="Player" to="Labels" method="_on_player_action"]
 [connection signal="death" from="Player" to="." method="_on_player_death"]
+[connection signal="time" from="Player" to="ItemDropper" method="_on_player_time"]
 [connection signal="updated_player" from="SpeechToText/CaptureStreamToText" to="Player" method="_on_capture_stream_to_text_updated_player"]

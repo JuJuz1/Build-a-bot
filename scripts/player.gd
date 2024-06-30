@@ -5,6 +5,7 @@ class_name Player
 ## Signals
 signal death ## Emitted to world on death
 signal action(action_id: int) ## Emitted to world/UI to flash labels on screen
+signal time(enabled: bool) ## Emitted to itemdropper when slowing down time
 
 ## Used to limit how many actions the player can perform in a time limit
 var action_available: bool = true
@@ -15,6 +16,12 @@ const TIME_FOR_ACTION: float = 1.0
 const TIME_FOR_HEAL: float = 2.0
 const HEAL_AMOUNT: int = 1
 @onready var timer_healing: Timer = $TimerHealing
+
+## Time action's cooldown and length
+const TIME_ACTION_COOLDOWN: int = 20
+const TIME_LENGTH: int = 5
+@onready var timer_time: Timer = $TimerTime
+@onready var timer_time_cooldown: Timer = $TimerTimeCooldown
 
 ## Size for the grid (one tile), how much the player will move with each movement action
 const GRID_SIZE: float = 3
@@ -30,7 +37,7 @@ var model_current: int = 0
 ## Robot's models
 const ROBOT_MODEL_0: PackedScene = preload("res://graphics/blender/robot_model_0.blend")
 const ROBOT_MODEL_1: PackedScene = preload("res://graphics/blender/robot_model_1.blend")
-## Dictionary to hold all the upgrade models with the corresponding stage of the robot
+## Dictionary to hold all the upgrade models with the corresponding "phase" of the robot
 var dict_models: Dictionary = {0: ROBOT_MODEL_0, 1: ROBOT_MODEL_1}
 
 func _ready() -> void:
@@ -41,10 +48,17 @@ func _ready() -> void:
 	timer_healing.wait_time = TIME_FOR_HEAL
 	timer_healing.timeout.connect(heal)
 	
+	timer_time.wait_time = TIME_LENGTH
+	timer_time.timeout.connect(func() -> void: 
+		time.emit(false)
+		$UI/TextureTime.hide())
+	
+	timer_time_cooldown.wait_time = TIME_ACTION_COOLDOWN
+	
 	#health = 0
 	# TODO: comment out
 	upgrade_points = 1
-
+	
 
 ## Enable action to control player
 func action_enable() -> void:
@@ -112,6 +126,7 @@ func _on_capture_stream_to_text_updated_player(text : String) -> void:
 	if action_available:
 		# Presume to make an action
 		var action_made: bool = true
+		# Used to flash the correct label on screen
 		var action_id: int
 		# If making a special action (time or heal), then don't consume battery
 		var action_is_special: bool = false
@@ -120,9 +135,16 @@ func _on_capture_stream_to_text_updated_player(text : String) -> void:
 		#print(position)
 		# TODO: Animationplayer for all the actions
 		if text.contains("time"):
+			if not timer_time_cooldown.is_stopped():
+				return
 			# Slow down the dropping items
 			#signal.time.emit() to world.gd
 			action_is_special = true
+			time.emit(true)
+			$UI/TextureTime.show()
+			# Start both timers
+			timer_time.start()
+			timer_time_cooldown.start()
 			print("time")
 		# Tiny model couldn't recognise this one very well
 		elif text.contains("heal") or text.contains("heel") or text.contains("healing"):

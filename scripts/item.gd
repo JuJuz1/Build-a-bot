@@ -5,6 +5,7 @@ signal picked_up
 
 ## Constant gravity when falling
 const GRAVITY: float = 0.4
+const GRAVITY_SLOWED: float = 0.1
 
 ## Export variables make up different items without the need to create different scripts
 ## Variables that are applied to the player when picking up an item
@@ -13,8 +14,13 @@ const GRAVITY: float = 0.4
 @export var robot_upgrade: bool ## If the item is an upgrade to the robot's model
 
 
-func _ready():
+func _ready() -> void:
 	gravity_scale = GRAVITY
+
+
+## Changes gravity to slower when time is slowed
+func change_gravity() -> void:
+	gravity_scale = GRAVITY_SLOWED
 
 
 ## Destroy self when colliding with floor

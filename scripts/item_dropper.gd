@@ -2,14 +2,17 @@ extends Area3D
 ## Item dropper
 
 ## Preload all different items
-@onready var Item = preload("res://scenes/item.tscn")
-@onready var Poison = preload("res://scenes/poison.tscn")
-@onready var Robot_upgrade = preload("res://scenes/robot_upgrade.tscn")
+const ITEM = preload("res://scenes/item.tscn")
+const POISON = preload("res://scenes/poison.tscn")
+const ROBOT_UPGRADE = preload("res://scenes/robot_upgrade.tscn")
 
 @onready var timer_item_drop = $Timer
 
 ## All items that could be generated to the level
 var items: Array[PackedScene]
+
+## When player slows down the time
+var time_slow: bool = false
 
 ## Same for the player
 const GRID_SIZE: int = 3
@@ -19,13 +22,19 @@ const POINTS: Array[int] = [-GRID_SIZE, 0, GRID_SIZE]
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# Append preloaded items
-	items.append(Item)
-	items.append(Poison)
-	items.append(Robot_upgrade)
+	items.append(ITEM)
+	items.append(POISON)
+	items.append(ROBOT_UPGRADE)
 	
 	timer_item_drop.timeout.connect(drop_item)
 	await get_tree().create_timer(2).timeout
 	timer_item_drop.start()
+
+
+## When player slows down the time
+## [param enabled] current state
+func _on_player_time(enabled: bool):
+	time_slow = enabled
 
 
 ## Instantiate the item and add it as a child to the tree
@@ -34,5 +43,7 @@ func drop_item() -> void:
 	# Pick 2 random values from POINTS array (3^2 = 9 possibilities) and assign to position
 	item_instance.position = Vector3(POINTS.pick_random(), position.y, POINTS.pick_random())
 	get_tree().root.add_child(item_instance)
+	if time_slow:
+		item_instance.change_gravity()
 	
-	timer_item_drop.start(randf_range(0.5, 2))
+	timer_item_drop.start(randf_range(0.75, 2))

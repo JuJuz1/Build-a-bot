@@ -169,10 +169,15 @@ mesh = SubResource("ArrayMesh_wfxho")
 shape = SubResource("CapsuleShape3D_3ufp4")
 
 [node name="TimerAction" type="Timer" parent="."]
-wait_time = 2.0
 one_shot = true
 
 [node name="TimerHealing" type="Timer" parent="."]
+
+[node name="TimerTime" type="Timer" parent="."]
+one_shot = true
+
+[node name="TimerTimeCooldown" type="Timer" parent="."]
+one_shot = true
 
 [node name="UI" type="Control" parent="."]
 material = ExtResource("4_5hf1d")
@@ -182,7 +187,7 @@ offset_right = 53.0
 offset_bottom = 24.0
 script = ExtResource("3_hid0y")
 
-[node name="TextureRect" type="TextureRect" parent="UI"]
+[node name="TextureListening" type="TextureRect" parent="UI"]
 use_parent_material = true
 layout_mode = 2
 offset_top = 556.0
@@ -190,7 +195,7 @@ offset_right = 223.0
 offset_bottom = 648.0
 texture = SubResource("CanvasTexture_jtn1j")
 
-[node name="Label" type="Label" parent="UI/TextureRect"]
+[node name="Label" type="Label" parent="UI/TextureListening"]
 layout_mode = 0
 offset_left = 9.0
 offset_top = 16.0
@@ -200,6 +205,27 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 40
 text = "LISTENING"
+horizontal_alignment = 1
+
+[node name="TextureTime" type="TextureRect" parent="UI"]
+visible = false
+use_parent_material = true
+offset_left = 476.0
+offset_top = 556.0
+offset_right = 699.0
+offset_bottom = 648.0
+texture = SubResource("CanvasTexture_jtn1j")
+
+[node name="Label" type="Label" parent="UI/TextureTime"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 16.0
+offset_right = 213.0
+offset_bottom = 71.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 40
+text = "TIME"
 horizontal_alignment = 1
 
 [node name="Quit" type="Label" parent="UI"]
