@@ -28,6 +28,13 @@ light_energy = 0.5
 shadow_enabled = true
 shadow_opacity = 0.7
 
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.855093, 0.518475, 0, -0.518475, 0.855093, 0, 5.75768, 9.14844)
+environment = SubResource("Environment_pwit6")
+
+[node name="ItemDropper" parent="." instance=ExtResource("5_4otuo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, 0)
+
 [node name="Floor" type="Node" parent="."]
 
 [node name="Floor" parent="Floor" instance=ExtResource("2_k0x7a")]
@@ -55,13 +62,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
 
 [node name="Floor9" parent="Floor" instance=ExtResource("2_k0x7a")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 3)
-
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.855093, 0.518475, 0, -0.518475, 0.855093, 0, 5.75768, 9.14844)
-environment = SubResource("Environment_pwit6")
-
-[node name="ItemDropper" parent="." instance=ExtResource("5_4otuo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, 0)
 
 [node name="SpeechToText" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.353271, 0.489226, -3.22894)

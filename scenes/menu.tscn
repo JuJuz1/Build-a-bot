@@ -1,14 +1,16 @@
 [gd_scene load_steps=6 format=3 uid="uid://16tulcog0cfk"]
 
 [ext_resource type="Script" path="res://scripts/menu.gd" id="1_yb5mv"]
+[ext_resource type="PackedScene" uid="uid://d31cbrgbj0tr1" path="res://graphics/blender/robot_model.blend" id="2_ausn4"]
 [ext_resource type="Script" path="res://scripts/audio_catcher.gd" id="2_rm726"]
 [ext_resource type="PackedScene" uid="uid://d37wdrgeicey" path="res://scenes/floor_test.tscn" id="3_uouxo"]
-[ext_resource type="PackedScene" uid="uid://bi2q08exsihat" path="res://graphics/blender/robot_model1.blend" id="4_hxsor"]
 
 [sub_resource type="AudioStreamMicrophone" id="AudioStreamMicrophone_bpo12"]
 
 [node name="Menu" type="Node3D"]
 script = ExtResource("1_yb5mv")
+
+[node name="robot_model" parent="." instance=ExtResource("2_ausn4")]
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -0.0263518, 0.999653, 0, -0.999653, -0.0263518, 0, 3, 0)
@@ -38,8 +40,6 @@ text = "ON"
 horizontal_alignment = 1
 
 [node name="Floor" parent="." instance=ExtResource("3_uouxo")]
-
-[node name="robot_model1" parent="." instance=ExtResource("4_hxsor")]
 
 [node name="LabelInfo" type="Label" parent="."]
 offset_left = 50.0
