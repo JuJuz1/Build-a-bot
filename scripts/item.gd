@@ -10,7 +10,7 @@ signal picked_up
 @export var robot_upgrade: bool ## If the item is an upgrade to the robot's model
 
 ## Destroy self when colliding with floor
-func _on_area_3d_destroy():
+func _on_area_3d_destroy() -> void:
 	""" 
 	var tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
 	tween.tween_property(self, "modulate:a", 0, 1)
@@ -21,7 +21,7 @@ func _on_area_3d_destroy():
 
 
 ## Connect signal and send it to player
-func _on_area_3d_item_pickup(body: CharacterBody3D):
+func _on_area_3d_item_pickup(body: CharacterBody3D) -> void:
 	# Not sure if this is good practice (connecting signals in runtime)
 	picked_up.connect(body._on_item_picked_up)
 	picked_up.emit(self)

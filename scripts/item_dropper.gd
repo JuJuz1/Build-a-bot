@@ -17,7 +17,7 @@ const GRID_SIZE: int = 3
 const POINTS: Array[int] = [-GRID_SIZE, 0, GRID_SIZE]
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
+func _ready() -> void:
 	# Append preloaded items
 	items.append(Item)
 	items.append(Poison)

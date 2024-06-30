@@ -76,7 +76,7 @@ func upgrade() -> void:
 	upgrade_points = 3
 	model_current += 1
 	# The dictionary's size limits the number of upgrades
-	if model_current > dict_models.size():
+	if model_current > dict_models.size() - 1:
 		model_current = dict_models.size() - 1
 		return
 	# Access the dictionary with the new model_current variable to load the new model
@@ -113,7 +113,7 @@ func _on_capture_stream_to_text_updated_player(text : String) -> void:
 			action_is_special = true
 			print("time")
 		# Tiny model couldn't recognise this one very well
-		elif text.contains("heal") or text.contains("heel"):
+		elif text.contains("heal") or text.contains("heel") or text.contains("healing"):
 			if not timer_healing.is_stopped():
 				return
 			# Start a timer to heal the bot (recharge battery)
@@ -121,7 +121,7 @@ func _on_capture_stream_to_text_updated_player(text : String) -> void:
 			# Healing increases the amount of time to make the next action
 			action_time = 3
 			action_is_special = true
-		elif text.contains("left"):
+		elif text.contains("left") or text.contains("let"):
 			# Check for position to stay in the 3x3 grid
 			if position.x == -GRID_SIZE:
 				return

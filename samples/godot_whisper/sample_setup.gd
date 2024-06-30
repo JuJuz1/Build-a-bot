@@ -17,11 +17,11 @@ func _ready():
 	#audio_to_text.transcribed_msg.connect(transcribe_label._on_capture_stream_to_text_transcribed_msg)
 
 
-func _on_rich_text_label_updated(_text):
+func _on_rich_text_label_updated(_text) -> void:
 	#updated_player.emit(text)
 	pass
 
 
 ## Passes text to player
-func _on_capture_stream_to_text_transcribed(full_text):
+func _on_capture_stream_to_text_transcribed(full_text) -> void:
 	updated_player.emit(full_text)
