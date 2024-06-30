@@ -2,9 +2,9 @@ extends Area3D
 ## Item dropper
 
 ## Preload all different items
-const ITEM = preload("res://scenes/item.tscn")
-const POISON = preload("res://scenes/poison.tscn")
-const ROBOT_UPGRADE = preload("res://scenes/robot_upgrade.tscn")
+const ITEM = preload("res://scenes/items/item.tscn")
+const POISON = preload("res://scenes/items/poison.tscn")
+const ROBOT_UPGRADE = preload("res://scenes/items/robot_upgrade.tscn")
 
 @onready var timer_item_drop = $Timer
 

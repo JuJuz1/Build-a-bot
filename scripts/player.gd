@@ -19,12 +19,12 @@ const HEAL_AMOUNT: int = 1
 
 ## Time action's cooldown and length
 const TIME_ACTION_COOLDOWN: int = 20
-const TIME_LENGTH: int = 5
+const TIME_LENGTH: int = 8
 @onready var timer_time: Timer = $TimerTime
 @onready var timer_time_cooldown: Timer = $TimerTimeCooldown
 
 ## Size for the grid (one tile), how much the player will move with each movement action
-const GRID_SIZE: float = 3
+const GRID_SIZE: float = 3 ## Keeping it float to prevent possible errors calulating position
 
 ## Current point count and health
 var points: int = 0
@@ -135,11 +135,11 @@ func _on_capture_stream_to_text_updated_player(text : String) -> void:
 		#print(position)
 		# TODO: Animationplayer for all the actions
 		if text.contains("time"):
-			if not timer_time_cooldown.is_stopped():
+			# Time action only available when robot fully upgraded
+			if not (model_current == dict_models.size() - 1 and timer_time_cooldown.is_stopped()):
 				return
-			# Slow down the dropping items
-			#signal.time.emit() to world.gd
 			action_is_special = true
+			# Slow down the dropping items
 			time.emit(true)
 			$UI/TextureTime.show()
 			# Start both timers
