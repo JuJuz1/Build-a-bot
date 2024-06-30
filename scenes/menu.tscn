@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://16tulcog0cfk"]
 
 [ext_resource type="Script" path="res://scripts/menu.gd" id="1_yb5mv"]
-[ext_resource type="PackedScene" uid="uid://d31cbrgbj0tr1" path="res://graphics/blender/robot_model.blend" id="2_ausn4"]
+[ext_resource type="PackedScene" uid="uid://d31cbrgbj0tr1" path="res://graphics/blender/robot_model_0.blend" id="2_ausn4"]
 [ext_resource type="Script" path="res://scripts/audio_catcher.gd" id="2_rm726"]
 [ext_resource type="PackedScene" uid="uid://d37wdrgeicey" path="res://scenes/floor_test.tscn" id="3_uouxo"]
 

@@ -3,11 +3,19 @@ extends RigidBody3D
 
 signal picked_up
 
+## Constant gravity when falling
+const GRAVITY: float = 0.4
+
 ## Export variables make up different items without the need to create different scripts
 ## Variables that are applied to the player when picking up an item
 @export var health: int ## How much health the player will lose or get
 @export var points: int ## How many points will be deducted or added
 @export var robot_upgrade: bool ## If the item is an upgrade to the robot's model
+
+
+func _ready():
+	gravity_scale = GRAVITY
+
 
 ## Destroy self when colliding with floor
 func _on_area_3d_destroy() -> void:

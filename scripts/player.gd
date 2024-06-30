@@ -27,12 +27,11 @@ var health: int = 30
 var upgrade_points: int = 3
 var model_current: int = 0
 
-## Materials to test model upgrading
-const STANDARD_MATERIAL_3D_RED = preload("res://materials/standard_material3d_red.tres")
-const STANDARD_MATERIAL_3D_PURPLE = preload("res://materials/standard_material3d_purple.tres")
-
+## Robot's models
+const ROBOT_MODEL_0: PackedScene = preload("res://graphics/blender/robot_model_0.blend")
+const ROBOT_MODEL_1: PackedScene = preload("res://graphics/blender/robot_model_1.blend")
 ## Dictionary to hold all the upgrade models with the corresponding stage of the robot
-var dict_models: Dictionary = {0: STANDARD_MATERIAL_3D_RED, 1: STANDARD_MATERIAL_3D_PURPLE}
+var dict_models: Dictionary = {0: ROBOT_MODEL_0, 1: ROBOT_MODEL_1}
 
 func _ready() -> void:
 	$UI.update_labels(points, health)
@@ -43,6 +42,8 @@ func _ready() -> void:
 	timer_healing.timeout.connect(heal)
 	
 	#health = 0
+	# TODO: comment out
+	upgrade_points = 1
 
 
 ## Enable action to control player
@@ -62,6 +63,8 @@ func heal() -> void:
 func _on_item_picked_up(item: RigidBody3D) -> void:
 	health += item.health
 	points += item.points
+	if points < 0:
+		points = 0
 	$UI.update_labels(points, health)
 	if health <= 0:
 		#queue_free()
@@ -81,8 +84,14 @@ func upgrade() -> void:
 	if model_current > dict_models.size() - 1:
 		model_current = dict_models.size() - 1
 		return
+	$Model.get_child(0).queue_free()
 	# Access the dictionary with the new model_current variable to load the new model
-	$MeshInstance3D.set_surface_override_material(0, dict_models[model_current])
+	var model_new: Node3D = dict_models[model_current].instantiate()
+	if model_new:
+		$Model.add_child(dict_models[model_current].instantiate())
+		#Audio
+	else:
+		push_warning("Couldn't instantiate model" + str(model_current))
 
 
 ## Performing player character actions based on the transcribed speech to text

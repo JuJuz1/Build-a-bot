@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://d31cbrgbj0tr1"
-path="res://.godot/imported/robot_model.blend-07bb3e002fec405e01b3e37f6c00772c.scn"
+path="res://.godot/imported/robot_model_0.blend-b49b57cd3c05f72b90f7dfe89c0c9f53.scn"
 
 [deps]
 
-source_file="res://graphics/blender/robot_model.blend"
-dest_files=["res://.godot/imported/robot_model.blend-07bb3e002fec405e01b3e37f6c00772c.scn"]
+source_file="res://graphics/blender/robot_model_0.blend"
+dest_files=["res://.godot/imported/robot_model_0.blend-b49b57cd3c05f72b90f7dfe89c0c9f53.scn"]
 
 [params]
 

@@ -20,5 +20,6 @@ func flash() -> void:
 	tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC).set_parallel(true)
 	tween.tween_property(self, "modulate:a", 1, 0.4)
 	tween.tween_property(self, "scale", Vector3(1.5, 1.5, 1.5), 0.4)
+	# Waits till the two are finished then proceeds with parallel operations
 	tween.chain().tween_property(self, "modulate:a", ALPHA, 0.2)
 	tween.tween_property(self, "scale", Vector3.ONE, 0.2)

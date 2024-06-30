@@ -1,8 +1,8 @@
 [gd_scene load_steps=17 format=4 uid="uid://cfyf4okhd8q32"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_1tpsb"]
-[ext_resource type="PackedScene" uid="uid://d31cbrgbj0tr1" path="res://graphics/blender/robot_model.blend" id="2_lq77t"]
-[ext_resource type="Script" path="res://scripts/ui.gd" id="3_hid0y"]
+[ext_resource type="PackedScene" uid="uid://d31cbrgbj0tr1" path="res://graphics/blender/robot_model_0.blend" id="2_lq77t"]
+[ext_resource type="Script" path="res://scripts/ui_player.gd" id="3_hid0y"]
 [ext_resource type="Material" uid="uid://bhem2fdr0jrrt" path="res://materials/material_unshaded.tres" id="4_5hf1d"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uydvd"]
@@ -156,7 +156,9 @@ _data = {
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_1tpsb")
 
-[node name="robot_model" parent="." instance=ExtResource("2_lq77t")]
+[node name="Model" type="Node3D" parent="."]
+
+[node name="robot_model" parent="Model" instance=ExtResource("2_lq77t")]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)

@@ -17,4 +17,4 @@ func update_listening(listening: bool) -> void:
 	if listening:
 		$TextureRect.modulate.a = 1
 	else:
-		$TextureRect.modulate.a = 0
+		$TextureRect.modulate.a = 0.25

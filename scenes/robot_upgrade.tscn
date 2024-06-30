@@ -15,7 +15,6 @@ albedo_color = Color(0.784419, 0.199646, 0.183654, 1)
 [node name="RobotUpgrade" type="RigidBody3D"]
 collision_layer = 0
 collision_mask = 0
-gravity_scale = 0.5
 script = ExtResource("1_m18rv")
 points = 20
 robot_upgrade = true
