@@ -1,10 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://b03wvhcgh0dd"]
+[gd_scene load_steps=10 format=3 uid="uid://b03wvhcgh0dd"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_vgch5"]
 [ext_resource type="PackedScene" uid="uid://d37wdrgeicey" path="res://scenes/floor_test.tscn" id="2_k0x7a"]
 [ext_resource type="PackedScene" uid="uid://cfyf4okhd8q32" path="res://scenes/player.tscn" id="2_ujslp"]
 [ext_resource type="PackedScene" uid="uid://cgs7ieip4qd86" path="res://scenes/item_dropper.tscn" id="5_4otuo"]
 [ext_resource type="PackedScene" uid="uid://c6nuieoaf3eis" path="res://scenes/mic_transcribe_2.tscn" id="5_j7676"]
+[ext_resource type="Script" path="res://scripts/label_3d.gd" id="6_0jkmj"]
+[ext_resource type="Script" path="res://scripts/world_ui.gd" id="6_hl5vg"]
 
 [sub_resource type="Environment" id="Environment_woufo"]
 background_color = Color(1, 1, 1, 1)
@@ -24,12 +26,11 @@ environment = SubResource("Environment_woufo")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.526956, 0.849893, 0, -0.849893, 0.526956, 0, 18.613, 9.861)
 light_color = Color(1, 0.981899, 0.765967, 1)
-light_energy = 0.5
 shadow_enabled = true
 shadow_opacity = 0.7
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.855093, 0.518475, 0, -0.518475, 0.855093, 0, 5.75768, 9.14844)
+transform = Transform3D(1, 0, 0, 0, 0.848048, 0.529919, 0, -0.529919, 0.848048, 0, 5.75768, 9.14844)
 environment = SubResource("Environment_pwit6")
 
 [node name="ItemDropper" parent="." instance=ExtResource("5_4otuo")]
@@ -71,5 +72,37 @@ visible = false
 offset_left = -337.5
 offset_right = 337.5
 
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("6_hl5vg")
+
+[node name="Label3DLeft" type="Label3D" parent="Control"]
+transform = Transform3D(1, 0, 0, 0, 0.848048, 0.529919, 0, -0.529919, 0.848048, -11, 1, 0)
+text = "LEFT"
+font_size = 200
+script = ExtResource("6_0jkmj")
+
+[node name="Label3DRight" type="Label3D" parent="Control"]
+transform = Transform3D(1, 0, 0, 0, 0.848048, 0.529919, 0, -0.529919, 0.848048, 11, 1, 0)
+text = "RIGHT"
+font_size = 200
+script = ExtResource("6_0jkmj")
+
+[node name="Label3DUp" type="Label3D" parent="Control"]
+transform = Transform3D(1, 0, 0, 0, 0.848048, 0.529919, 0, -0.529919, 0.848048, 0, 5, -11)
+text = "UP"
+font_size = 350
+script = ExtResource("6_0jkmj")
+
+[node name="Label3DDown" type="Label3D" parent="Control"]
+transform = Transform3D(1, 0, 0, 0, 0.848048, 0.529919, 0, -0.529919, 0.848048, 0, 1, 6)
+text = "DOWN"
+font_size = 100
+script = ExtResource("6_0jkmj")
+
+[connection signal="action" from="Player" to="Control" method="_on_player_action"]
 [connection signal="death" from="Player" to="." method="_on_player_death"]
 [connection signal="updated_player" from="SpeechToText/CaptureStreamToText" to="Player" method="_on_capture_stream_to_text_updated_player"]

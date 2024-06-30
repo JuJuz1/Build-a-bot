@@ -2,7 +2,9 @@ extends CharacterBody3D
 class_name Player
 ## Player character
 
-signal death
+## Signals
+signal death ## Emitted to world on death
+signal action(action_id: int) ## Emitted to world/UI to flash labels on screen
 
 ## Used to limit how many actions the player can perform in a time limit
 var action_available: bool = true
@@ -101,6 +103,7 @@ func _on_capture_stream_to_text_updated_player(text : String) -> void:
 	if action_available:
 		# Presume to make an action
 		var action_made: bool = true
+		var action_id: int
 		# If making a special action (time or heal), then don't consume battery
 		var action_is_special: bool = false
 		# Cooldown for next action
@@ -129,21 +132,25 @@ func _on_capture_stream_to_text_updated_player(text : String) -> void:
 			# Create a tween to tween position
 			var tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
 			tween.tween_property(self, "position:x", position.x - GRID_SIZE, 0.3)
+			action_id = 0
 		elif text.contains("right"):
 			if position.x == GRID_SIZE:
 				return
 			var tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
 			tween.tween_property(self, "position:x", position.x + GRID_SIZE, 0.3)
+			action_id = 1
 		elif text.contains("up"):
 			if position.z == -GRID_SIZE:
 				return
 			var tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
 			tween.tween_property(self, "position:z", position.z - GRID_SIZE, 0.3)
+			action_id = 2
 		elif text.contains("down"):
 			if position.z == GRID_SIZE:
 				return
 			var tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
 			tween.tween_property(self, "position:z", position.z + GRID_SIZE, 0.3)
+			action_id = 3
 		else: # Only if the player doesn't make any action
 			action_made = false
 	
@@ -157,6 +164,7 @@ func _on_capture_stream_to_text_updated_player(text : String) -> void:
 					#queue_free()
 					death.emit()
 					$UI/Quit.show()
+			action.emit(action_id)
 			# Restart action timer to prevent making actions too fast
 			action_available = false
 			$UI.update_listening(action_available)

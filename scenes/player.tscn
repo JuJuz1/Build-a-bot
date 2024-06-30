@@ -183,10 +183,9 @@ script = ExtResource("3_hid0y")
 [node name="TextureRect" type="TextureRect" parent="UI"]
 use_parent_material = true
 layout_mode = 2
-offset_left = 450.0
-offset_top = 529.0
-offset_right = 673.0
-offset_bottom = 621.0
+offset_top = 556.0
+offset_right = 223.0
+offset_bottom = 648.0
 texture = SubResource("CanvasTexture_jtn1j")
 
 [node name="Label" type="Label" parent="UI/TextureRect"]
