@@ -37,8 +37,11 @@ var model_current: int = 0
 ## Robot's models
 const ROBOT_MODEL_0: PackedScene = preload("res://graphics/blender/robot_model_0.blend")
 const ROBOT_MODEL_1: PackedScene = preload("res://graphics/blender/robot_model_1.blend")
+const ROBOT_MODEL_2: PackedScene = preload("res://graphics/blender/robot_model_2.blend")
+const ROBOT_MODEL_3: PackedScene = preload("res://graphics/blender/robot_model_3.blend")
+const ROBOT_MODEL_4: PackedScene = preload("res://graphics/blender/robot_model_4.blend")
 ## Dictionary to hold all the upgrade models with the corresponding "phase" of the robot
-var dict_models: Dictionary = {0: ROBOT_MODEL_0, 1: ROBOT_MODEL_1}
+var dict_models: Dictionary = {0: ROBOT_MODEL_0, 1: ROBOT_MODEL_1, 2: ROBOT_MODEL_2, 3: ROBOT_MODEL_3, 4: ROBOT_MODEL_4} ## Size is 5
 
 func _ready() -> void:
 	$UI.update_labels(points, health)
@@ -51,19 +54,20 @@ func _ready() -> void:
 	timer_time.wait_time = TIME_LENGTH
 	timer_time.timeout.connect(func() -> void: 
 		time.emit(false)
-		$UI/TextureTime.hide())
+		$UI.texture_update(1, false))
 	
 	timer_time_cooldown.wait_time = TIME_ACTION_COOLDOWN
 	
 	#health = 0
 	# TODO: comment out
 	upgrade_points = 1
-	
+	model_current = 3
+
 
 ## Enable action to control player
 func action_enable() -> void:
 	action_available = true
-	$UI.update_listening(action_available)
+	$UI.texture_update(0, action_available)
 
 
 ## Increase health when healing
@@ -92,12 +96,18 @@ func _on_item_picked_up(item: RigidBody3D) -> void:
 
 ## Upgrades the robot's model
 func upgrade() -> void:
-	upgrade_points = 3
+	#TODO: change to 3
+	upgrade_points = 1 # 3
+	
 	model_current += 1
 	# The dictionary's size limits the number of upgrades
 	if model_current > dict_models.size() - 1:
 		model_current = dict_models.size() - 1
 		return
+	if model_current == 4:
+		pass
+		$UI.enable_time_texture()
+		# Show message that player can use time action
 	$Model.get_child(0).queue_free()
 	# Access the dictionary with the new model_current variable to load the new model
 	var model_new: Node3D = dict_models[model_current].instantiate()
@@ -141,17 +151,18 @@ func _on_capture_stream_to_text_updated_player(text : String) -> void:
 			action_is_special = true
 			# Slow down the dropping items
 			time.emit(true)
-			$UI/TextureTime.show()
 			# Start both timers
 			timer_time.start()
 			timer_time_cooldown.start()
+			$UI.texture_update(1, true)
 			print("time")
 		# Tiny model couldn't recognise this one very well
-		elif text.contains("heal") or text.contains("heel") or text.contains("healing"):
+		elif text.contains("heal") or text.contains("heel") or text.contains("here") or text.contains("healing"):
 			if not timer_healing.is_stopped():
 				return
 			# Start a timer to heal the bot (recharge battery)
 			timer_healing.start()
+			$UI.texture_update(2, true)
 			# Healing increases the amount of time to make the next action
 			action_time = 3
 			action_is_special = true
@@ -190,6 +201,7 @@ func _on_capture_stream_to_text_updated_player(text : String) -> void:
 				health -= 1
 				$UI.update_labels(points, health)
 				timer_healing.stop()
+				$UI.texture_update(2, false)
 				if health <= 0:
 					#healing_start()
 					#queue_free()
@@ -198,7 +210,7 @@ func _on_capture_stream_to_text_updated_player(text : String) -> void:
 			action.emit(action_id)
 			# Restart action timer to prevent making actions too fast
 			action_available = false
-			$UI.update_listening(action_available)
+			$UI.texture_update(0, action_available)
 			$UI.update_labels(points, health)
 			# If healed action_time == 3 else 1
 			timer_action.start(action_time)

@@ -1,9 +1,10 @@
-[gd_scene load_steps=17 format=4 uid="uid://cfyf4okhd8q32"]
+[gd_scene load_steps=18 format=4 uid="uid://cfyf4okhd8q32"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_1tpsb"]
 [ext_resource type="PackedScene" uid="uid://d31cbrgbj0tr1" path="res://graphics/blender/robot_model_0.blend" id="2_lq77t"]
 [ext_resource type="Script" path="res://scripts/ui_player.gd" id="3_hid0y"]
 [ext_resource type="Material" uid="uid://bhem2fdr0jrrt" path="res://materials/material_unshaded.tres" id="4_5hf1d"]
+[ext_resource type="Script" path="res://scenes/texture_rect.gd" id="5_80je7"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uydvd"]
 resource_name = "Material.001"
@@ -194,6 +195,7 @@ offset_top = 556.0
 offset_right = 223.0
 offset_bottom = 648.0
 texture = SubResource("CanvasTexture_jtn1j")
+script = ExtResource("5_80je7")
 
 [node name="Label" type="Label" parent="UI/TextureListening"]
 layout_mode = 0
@@ -211,11 +213,12 @@ horizontal_alignment = 1
 visible = false
 use_parent_material = true
 layout_mode = 0
-offset_left = 476.0
+offset_left = 352.0
 offset_top = 556.0
-offset_right = 699.0
+offset_right = 575.0
 offset_bottom = 648.0
 texture = SubResource("CanvasTexture_jtn1j")
+script = ExtResource("5_80je7")
 
 [node name="Label" type="Label" parent="UI/TextureTime"]
 layout_mode = 0
@@ -228,6 +231,39 @@ theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 40
 text = "TIME"
 horizontal_alignment = 1
+
+[node name="TextureHeal" type="TextureRect" parent="UI"]
+use_parent_material = true
+layout_mode = 0
+offset_left = 576.0
+offset_top = 556.0
+offset_right = 799.0
+offset_bottom = 648.0
+texture = SubResource("CanvasTexture_jtn1j")
+script = ExtResource("5_80je7")
+
+[node name="Label" type="Label" parent="UI/TextureHeal"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 16.0
+offset_right = 213.0
+offset_bottom = 71.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 40
+text = "HEAL"
+horizontal_alignment = 1
+
+[node name="LabelTimeInfo" type="Label" parent="UI"]
+visible = false
+layout_mode = 0
+offset_left = 198.0
+offset_top = 431.0
+offset_right = 953.0
+offset_bottom = 545.0
+theme_override_font_sizes/font_size = 40
+text = "YOU CAN NOW USE THE TIME ACTION
+                          ↓"
 
 [node name="Quit" type="Label" parent="UI"]
 visible = false

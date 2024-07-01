@@ -2,6 +2,10 @@ extends Node3D
 ## Menu that runs when the game starts
 
 func _input(event) -> void:
+	# PC Escape
+	if event.is_action_pressed("restart"):
+		get_tree().quit()
+	
 	# PC Enter, space
 	if event.is_action_pressed("start"):
 		$LabelInfo.hide()
