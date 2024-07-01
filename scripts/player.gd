@@ -58,7 +58,7 @@ func _ready() -> void:
 	
 	timer_time_cooldown.wait_time = TIME_ACTION_COOLDOWN
 	
-	#health = 0
+	health = 3
 	# TODO: comment out
 	upgrade_points = 1
 	model_current = 3
@@ -80,6 +80,8 @@ func heal() -> void:
 ## When picking up item
 func _on_item_picked_up(item: RigidBody3D) -> void:
 	health += item.health
+	if health > 30:
+		health = 30
 	points += item.points
 	if points < 0:
 		points = 0
@@ -143,7 +145,6 @@ func _on_capture_stream_to_text_updated_player(text : String) -> void:
 		# Cooldown for next action
 		var action_time: int = 1
 		#print(position)
-		# TODO: Animationplayer for all the actions
 		if text.contains("time"):
 			# Time action only available when robot fully upgraded
 			if not (model_current == dict_models.size() - 1 and timer_time_cooldown.is_stopped()):
@@ -214,4 +215,3 @@ func _on_capture_stream_to_text_updated_player(text : String) -> void:
 			$UI.update_labels(points, health)
 			# If healed action_time == 3 else 1
 			timer_action.start(action_time)
-	

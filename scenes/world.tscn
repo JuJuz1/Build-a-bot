@@ -79,7 +79,7 @@ offset_bottom = 40.0
 script = ExtResource("6_hl5vg")
 
 [node name="Label3DLeft" type="Label3D" parent="Labels"]
-transform = Transform3D(1, 0, 0, 0, 0.848048, 0.529919, 0, -0.529919, 0.848048, -11, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 0.848048, 0.529919, 0, -0.529919, 0.848048, -8, 1, 0)
 text = "LEFT"
 font_size = 200
 script = ExtResource("6_0jkmj")

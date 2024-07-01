@@ -5,10 +5,11 @@ func _ready() -> void:
 	$TextureHeal.state_update(false)
 
 
-## Update UI labels
+## Update UI labels and progress bar
 func update_labels(points: int, health: int) -> void:
 	$MarginContainer/VBoxContainer/LabelPoints.text = "Points: " + str(points)
 	$MarginContainer/VBoxContainer/LabelHealth.text = "Health: " + str(health)
+	$TextureProgressBar.value = health
 
 
 ## Enables time texture when robot gets final model

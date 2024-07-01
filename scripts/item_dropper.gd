@@ -5,6 +5,7 @@ extends Area3D
 const ITEM = preload("res://scenes/items/item.tscn")
 const POISON = preload("res://scenes/items/poison.tscn")
 const ROBOT_UPGRADE = preload("res://scenes/items/robot_upgrade.tscn")
+const BATTERY = preload("res://scenes/items/battery.tscn")
 
 @onready var timer_item_drop = $Timer
 
@@ -25,6 +26,7 @@ func _ready() -> void:
 	items.append(ITEM)
 	items.append(POISON)
 	items.append(ROBOT_UPGRADE)
+	items.append(BATTERY)
 	
 	timer_item_drop.timeout.connect(drop_item)
 	await get_tree().create_timer(2).timeout
