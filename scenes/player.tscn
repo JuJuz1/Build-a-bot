@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://d31cbrgbj0tr1" path="res://graphics/blender/robot_model_0.blend" id="2_lq77t"]
 [ext_resource type="Script" path="res://scripts/ui_player.gd" id="3_hid0y"]
 [ext_resource type="Material" uid="uid://bhem2fdr0jrrt" path="res://materials/material_unshaded.tres" id="4_5hf1d"]
-[ext_resource type="Script" path="res://scenes/texture_rect.gd" id="5_80je7"]
+[ext_resource type="Script" path="res://scripts/texture_rect.gd" id="5_80je7"]
 [ext_resource type="Texture2D" uid="uid://csoq1icr57dqk" path="res://graphics/outer_bar.png" id="6_dyxi0"]
 [ext_resource type="Texture2D" uid="uid://cosf7cmu6in5c" path="res://graphics/inner_bar.png" id="7_mjreg"]
 
@@ -279,17 +279,19 @@ offset_left = 198.0
 offset_top = 431.0
 offset_right = 953.0
 offset_bottom = 545.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 40
 text = "YOU CAN NOW USE THE TIME ACTION
-                          ↓"
+                        ↓↓↓"
 
 [node name="Quit" type="Label" parent="UI"]
 visible = false
 layout_mode = 2
 offset_left = 293.0
-offset_top = 178.0
+offset_top = 154.0
 offset_right = 866.0
-offset_bottom = 391.0
+offset_bottom = 367.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 50
 text = "Health reached below 0
 
@@ -313,6 +315,7 @@ layout_mode = 2
 [node name="LabelPoints" type="Label" parent="UI/MarginContainer/VBoxContainer"]
 use_parent_material = true
 layout_mode = 2
+theme_override_font_sizes/font_size = 30
 text = "Points: 0"
 
 [node name="LabelHealth" type="Label" parent="UI/MarginContainer/VBoxContainer"]

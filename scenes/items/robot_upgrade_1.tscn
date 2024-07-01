@@ -1,12 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://dq648voq8pi7w"]
+[gd_scene load_steps=6 format=3 uid="uid://c6bhec3p8iqk2"]
 
-[ext_resource type="Script" path="res://scripts/item.gd" id="1_m18rv"]
-[ext_resource type="Script" path="res://scripts/item_area3d.gd" id="2_8yjsv"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_bavpc"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nymbn"]
-albedo_color = Color(0.784419, 0.199646, 0.183654, 1)
+[ext_resource type="Script" path="res://scripts/item.gd" id="1_urbmn"]
+[ext_resource type="PackedScene" uid="uid://ctmipjd4eftr3" path="res://graphics/blender/panel.blend" id="2_86b5h"]
+[ext_resource type="Script" path="res://scripts/item_area3d.gd" id="3_k0lxt"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_43ui5"]
 
@@ -15,18 +11,17 @@ albedo_color = Color(0.784419, 0.199646, 0.183654, 1)
 [node name="RobotUpgrade" type="RigidBody3D"]
 collision_layer = 0
 collision_mask = 0
-script = ExtResource("1_m18rv")
-points = 20
+script = ExtResource("1_urbmn")
+points = 10
 robot_upgrade = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("BoxMesh_bavpc")
-surface_material_override/0 = SubResource("StandardMaterial3D_nymbn")
+[node name="panel" parent="." instance=ExtResource("2_86b5h")]
+transform = Transform3D(0.292664, 0.814063, -0.501647, -0.941034, 0.338311, 0, 0.169713, 0.472067, 0.865073, 0, 0, 0)
 
 [node name="Area3D" type="Area3D" parent="."]
 collision_layer = 0
 collision_mask = 3
-script = ExtResource("2_8yjsv")
+script = ExtResource("3_k0lxt")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 shape = SubResource("BoxShape3D_43ui5")

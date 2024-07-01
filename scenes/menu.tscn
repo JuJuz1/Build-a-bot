@@ -1,19 +1,40 @@
-[gd_scene load_steps=6 format=3 uid="uid://16tulcog0cfk"]
+[gd_scene load_steps=9 format=3 uid="uid://16tulcog0cfk"]
 
 [ext_resource type="Script" path="res://scripts/menu.gd" id="1_yb5mv"]
 [ext_resource type="PackedScene" uid="uid://d31cbrgbj0tr1" path="res://graphics/blender/robot_model_0.blend" id="2_ausn4"]
 [ext_resource type="Script" path="res://scripts/audio_catcher.gd" id="2_rm726"]
 [ext_resource type="PackedScene" uid="uid://d37wdrgeicey" path="res://scenes/floor_test.tscn" id="3_uouxo"]
 
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_trmq2"]
+turbidity = 0.0
+ground_color = Color(0.199637, 0.42431, 0.736612, 1)
+
+[sub_resource type="Sky" id="Sky_ah61a"]
+sky_material = SubResource("PhysicalSkyMaterial_trmq2")
+
+[sub_resource type="Environment" id="Environment_jka16"]
+background_mode = 2
+sky = SubResource("Sky_ah61a")
+sky_custom_fov = 92.0
+sdfgi_enabled = true
+volumetric_fog_density = 0.0283
+volumetric_fog_albedo = Color(0.219501, 0.219501, 0.219501, 1)
+
 [sub_resource type="AudioStreamMicrophone" id="AudioStreamMicrophone_bpo12"]
 
 [node name="Menu" type="Node3D"]
 script = ExtResource("1_yb5mv")
 
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_jka16")
+
 [node name="robot_model" parent="." instance=ExtResource("2_ausn4")]
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -0.0263518, 0.999653, 0, -0.999653, -0.0263518, 0, 3, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.229937, -0.459053, 0.858137, -0.118812, 0.888409, 0.443411, -0.965926, -3.67032e-07, -0.258819, 15.5633, 4.03443, 0)
 
 [node name="AudioCatcher" type="Node" parent="."]
 script = ExtResource("2_rm726")
@@ -65,8 +86,5 @@ offset_right = 828.0
 offset_bottom = 362.0
 theme_override_font_sizes/font_size = 80
 text = "Starting..."
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.229937, -0.459053, 0.858137, -0.118812, 0.888409, 0.443411, -0.965926, 0, -0.258819, 15.5633, 4.03443, 0)
 
 [connection signal="toggled" from="AudioCatcher/CheckBox" to="AudioCatcher" method="_on_button_toggled"]

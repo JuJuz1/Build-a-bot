@@ -14,7 +14,7 @@ func update_labels(points: int, health: int) -> void:
 
 ## Enables time texture when robot gets final model
 func enable_time_texture() -> void:
-	$TextureTime.state_update(false)
+	$TextureTime.modulate.a = 0.25
 	$TextureTime.show()
 	
 	$LabelTimeInfo.show()

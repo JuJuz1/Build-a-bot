@@ -19,8 +19,9 @@ func _ready() -> void:
 
 
 ## Changes gravity to slower when time is slowed
-func change_gravity() -> void:
-	gravity_scale = GRAVITY_SLOWED
+## [param gravity] new gravity, if not (time is slowed) given uses GRAVITY_SLOWED
+func change_gravity(gravity: float = GRAVITY_SLOWED) -> void:
+	gravity_scale = gravity
 
 
 ## Destroy self when colliding with floor

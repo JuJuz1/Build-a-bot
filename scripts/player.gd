@@ -6,6 +6,7 @@ class_name Player
 signal death ## Emitted to world on death
 signal action(action_id: int) ## Emitted to world/UI to flash labels on screen
 signal time(enabled: bool) ## Emitted to itemdropper when slowing down time
+signal point_gap_reached ## Emitted to itemdropper to increase difficulty
 
 ## Used to limit how many actions the player can perform in a time limit
 var action_available: bool = true
@@ -29,6 +30,9 @@ const GRID_SIZE: float = 3 ## Keeping it float to prevent possible errors calula
 ## Current point count and health
 var points: int = 0
 var health: int = 30
+var action_cost: int = 1 ## How much health 1 action takes
+const POINTS_GAP: int = 1 ## When reached, difficulty increases (see itemdropper), also increases action_cost to 2
+var point_gap_reached_emitted: bool = false
 
 ## Points to tell when the robot will be upgraded (how many are needed till the next)
 var upgrade_points: int = 3
@@ -58,7 +62,7 @@ func _ready() -> void:
 	
 	timer_time_cooldown.wait_time = TIME_ACTION_COOLDOWN
 	
-	health = 3
+	health = 100
 	# TODO: comment out
 	upgrade_points = 1
 	model_current = 3
@@ -83,6 +87,12 @@ func _on_item_picked_up(item: RigidBody3D) -> void:
 	if health > 30:
 		health = 30
 	points += item.points
+	if points > POINTS_GAP: # Only applies once
+		if point_gap_reached_emitted:
+			return
+		point_gap_reached.emit()
+		point_gap_reached_emitted = true
+		action_cost = 2
 	if points < 0:
 		points = 0
 	$UI.update_labels(points, health)
@@ -107,7 +117,8 @@ func upgrade() -> void:
 		model_current = dict_models.size() - 1
 		return
 	if model_current == 4:
-		pass
+		if $UI/TextureTime.visible:
+			return
 		$UI.enable_time_texture()
 		# Show message that player can use time action
 	$Model.get_child(0).queue_free()
@@ -199,7 +210,7 @@ func _on_capture_stream_to_text_updated_player(text : String) -> void:
 	
 		if action_made:
 			if not action_is_special:
-				health -= 1
+				health -= action_cost
 				$UI.update_labels(points, health)
 				timer_healing.stop()
 				$UI.texture_update(2, false)
