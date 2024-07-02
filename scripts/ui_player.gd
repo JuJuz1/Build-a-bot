@@ -19,7 +19,7 @@ func enable_time_texture() -> void:
 	
 	$LabelTimeInfo.show()
 	var tween: Tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
-	tween.tween_property($LabelTimeInfo, "modulate:a", 0, 4)
+	tween.tween_property($LabelTimeInfo, "modulate:a", 0, 5)
 
 
 ## Function to update a simple texture canvasitem

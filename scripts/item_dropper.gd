@@ -2,8 +2,8 @@ extends Area3D
 ## Item dropper
 
 ## Preload all different items
-const ITEM = preload("res://scenes/items/item.tscn")
 const POISON = preload("res://scenes/items/poison.tscn")
+const OIL_CAN = preload("res://scenes/items/oil_can.tscn")
 const BATTERY = preload("res://scenes/items/battery.tscn")
 const ROBOT_UPGRADE_0 = preload("res://scenes/items/robot_upgrade_0.tscn")
 const ROBOT_UPGRADE_1 = preload("res://scenes/items/robot_upgrade_1.tscn")
@@ -18,7 +18,7 @@ var items: Array[PackedScene]
 var time_slow: bool = false
 var difficulty_increased: bool = false
 ## Applied to items when difficulty is increased
-const GRAVITY_DIFFICULTY: float = 0.6
+const GRAVITY_DIFFICULTY: float = 0.5
 
 ## Same for the player
 const GRID_SIZE: int = 3
@@ -28,7 +28,7 @@ const POINTS: Array[int] = [-GRID_SIZE, 0, GRID_SIZE]
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# Append preloaded items
-	items.append(ITEM)
+	items.append(OIL_CAN)
 	items.append(POISON)
 	items.append(BATTERY)
 	items.append(ROBOT_UPGRADE_0)

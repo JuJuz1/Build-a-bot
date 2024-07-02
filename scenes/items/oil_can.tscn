@@ -1,31 +1,26 @@
-[gd_scene load_steps=7 format=3 uid="uid://bq17rj4loiir4"]
+[gd_scene load_steps=6 format=3 uid="uid://bq17rj4loiir4"]
 
-[ext_resource type="Script" path="res://scripts/item.gd" id="1_mvpn5"]
-[ext_resource type="Script" path="res://scripts/item_area3d.gd" id="2_xahnt"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_bavpc"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nymbn"]
-albedo_color = Color(0, 0, 0, 1)
+[ext_resource type="Script" path="res://scripts/item.gd" id="1_irefj"]
+[ext_resource type="Script" path="res://scripts/item_area3d.gd" id="2_6a50h"]
+[ext_resource type="PackedScene" uid="uid://b6t663juotnkv" path="res://graphics/blender/oil_can.blend" id="2_f3mgn"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_43ui5"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jm3p7"]
 
-[node name="Item" type="RigidBody3D"]
+[node name="OilCan" type="RigidBody3D"]
 collision_layer = 0
 collision_mask = 0
-script = ExtResource("1_mvpn5")
+script = ExtResource("1_irefj")
 points = 15
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("BoxMesh_bavpc")
-surface_material_override/0 = SubResource("StandardMaterial3D_nymbn")
+[node name="oil_can" parent="." instance=ExtResource("2_f3mgn")]
+transform = Transform3D(0.98043, 0.137713, 0.140683, -0.195437, 0.766818, 0.611387, -0.0236819, -0.626917, 0.778726, 0, 0, 0)
 
 [node name="Area3D" type="Area3D" parent="."]
 collision_layer = 0
 collision_mask = 3
-script = ExtResource("2_xahnt")
+script = ExtResource("2_6a50h")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 shape = SubResource("BoxShape3D_43ui5")

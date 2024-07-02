@@ -31,7 +31,7 @@ const GRID_SIZE: float = 3 ## Keeping it float to prevent possible errors calula
 var points: int = 0
 var health: int = 30
 var action_cost: int = 1 ## How much health 1 action takes
-const POINTS_GAP: int = 1 ## When reached, difficulty increases (see itemdropper), also increases action_cost to 2
+const POINTS_GAP: int = 100 ## When reached, difficulty increases (see itemdropper), also increases action_cost to 2
 var point_gap_reached_emitted: bool = false
 
 ## Points to tell when the robot will be upgraded (how many are needed till the next)
@@ -62,10 +62,10 @@ func _ready() -> void:
 	
 	timer_time_cooldown.wait_time = TIME_ACTION_COOLDOWN
 	
-	health = 100
+	#health = 100
 	# TODO: comment out
-	upgrade_points = 1
-	model_current = 3
+	#upgrade_points = 1
+	#model_current = 3
 
 
 ## Enable action to control player
@@ -93,6 +93,7 @@ func _on_item_picked_up(item: RigidBody3D) -> void:
 		point_gap_reached.emit()
 		point_gap_reached_emitted = true
 		action_cost = 2
+		print("Action cost increased")
 	if points < 0:
 		points = 0
 	$UI.update_labels(points, health)
@@ -109,7 +110,7 @@ func _on_item_picked_up(item: RigidBody3D) -> void:
 ## Upgrades the robot's model
 func upgrade() -> void:
 	#TODO: change to 3
-	upgrade_points = 1 # 3
+	upgrade_points = 3 # 3
 	
 	model_current += 1
 	# The dictionary's size limits the number of upgrades
@@ -126,6 +127,9 @@ func upgrade() -> void:
 	var model_new: Node3D = dict_models[model_current].instantiate()
 	if model_new:
 		$Model.add_child(dict_models[model_current].instantiate())
+		var tween: Tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
+		tween.tween_property($Model, "scale", Vector3(1.5, 1.5, 1.5), 0.25)
+		tween.tween_property($Model, "scale", Vector3.ONE, 0.1)
 		#Audio
 	else:
 		push_warning("Couldn't instantiate model" + str(model_current))
