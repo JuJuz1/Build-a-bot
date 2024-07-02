@@ -32,7 +32,6 @@ func _on_area_3d_destroy() -> void:
 	tween.finished.connect(func() -> void: queue_free())
 	"""
 	queue_free()
-	print("destroyed")
 
 
 ## Connect signal and send it to player
@@ -41,4 +40,3 @@ func _on_area_3d_item_pickup(body: CharacterBody3D) -> void:
 	picked_up.connect(body._on_item_picked_up)
 	picked_up.emit(self)
 	queue_free()
-	print("picked up")

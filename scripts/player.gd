@@ -104,7 +104,6 @@ func _on_item_picked_up(item: RigidBody3D) -> void:
 		point_gap_reached.emit()
 		point_gap_reached_emitted = true
 		action_cost = 2
-		print("Action cost increased")
 	if points < 0:
 		points = 0
 	$UI.update_labels(points, health)
@@ -199,7 +198,6 @@ func _on_capture_stream_to_text_updated_player(text : String) -> void:
 			timer_time_cooldown.start()
 			$UI.texture_update(1, true)
 			audio_time.play()
-			print("time")
 		# Tiny model couldn't recognise this one very well
 		elif text.contains("heal") or text.contains("heel") or text.contains("here") or text.contains("healing"):
 			if not timer_healing.is_stopped():
@@ -210,7 +208,7 @@ func _on_capture_stream_to_text_updated_player(text : String) -> void:
 			# Healing increases the amount of time to make the next action
 			action_time = 3
 			action_is_special = true
-		elif text.contains("left") or text.contains("let"):
+		elif text.contains("left") or text.contains("let") or text.contains("of"):
 			# Check for position to stay in the 3x3 grid
 			if position.x == -GRID_SIZE:
 				return

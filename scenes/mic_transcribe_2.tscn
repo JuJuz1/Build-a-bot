@@ -6,8 +6,8 @@
 [ext_resource type="Script" path="res://samples/godot_whisper/StartButton.gd" id="4_kxndb"]
 [ext_resource type="Script" path="res://addons/godot_whisper/label_transcribe.gd" id="4_prqad"]
 [ext_resource type="Script" path="res://samples/godot_whisper/enable_mic.gd" id="5_fece8"]
-[ext_resource type="WhisperResource" path="res://addons/godot_whisper/models/gglm-tiny.en.bin" id="6_5l644"]
 [ext_resource type="Script" path="res://addons/godot_whisper/capture_stream_to_text.gd" id="7_blsvl"]
+[ext_resource type="WhisperResource" path="res://addons/godot_whisper/models/gglm-tiny.en.bin" id="7_gbt7t"]
 
 [sub_resource type="AudioStreamMicrophone" id="AudioStreamMicrophone_rhq81"]
 
@@ -83,7 +83,7 @@ layout_mode = 2
 text = "Enable Microphone in Project Settings -> audio/driver/enable_input"
 
 [node name="CaptureStreamToText" type="SpeechToText" parent="."]
-language_model = ExtResource("6_5l644")
+language_model = ExtResource("7_gbt7t")
 script = ExtResource("7_blsvl")
 minimum_sentence_time = 0.6
 maximum_sentence_time = 1.0

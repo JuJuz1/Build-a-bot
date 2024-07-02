@@ -76,6 +76,8 @@ func transcribe_thread():
 		var audio_ctx : int = total_time * 1500 / 30 + 128
 		if !use_dynamic_audio_context:
 			audio_ctx = 0
+		if audio_ctx > 1499:
+			audio_ctx = 1499
 		var tokens := transcribe(resampled, initial_prompt, audio_ctx)
 		if tokens.is_empty():
 			push_warning("No tokens generated")

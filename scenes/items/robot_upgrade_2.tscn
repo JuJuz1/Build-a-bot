@@ -12,6 +12,7 @@
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_t1w1m")
+health = 3
 points = 10
 robot_upgrade = true
 
