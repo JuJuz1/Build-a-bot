@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=4 uid="uid://cfyf4okhd8q32"]
+[gd_scene load_steps=25 format=4 uid="uid://cfyf4okhd8q32"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_1tpsb"]
 [ext_resource type="PackedScene" uid="uid://d31cbrgbj0tr1" path="res://graphics/blender/robot_model_0.blend" id="2_lq77t"]
@@ -7,6 +7,11 @@
 [ext_resource type="Script" path="res://scripts/texture_rect.gd" id="5_80je7"]
 [ext_resource type="Texture2D" uid="uid://csoq1icr57dqk" path="res://graphics/outer_bar.png" id="6_dyxi0"]
 [ext_resource type="Texture2D" uid="uid://cosf7cmu6in5c" path="res://graphics/inner_bar.png" id="7_mjreg"]
+[ext_resource type="AudioStream" uid="uid://bnivk3wrhdr5n" path="res://audio/robot_upgrade.wav" id="8_ksm1h"]
+[ext_resource type="AudioStream" uid="uid://du2detaffgur8" path="res://audio/robot_damage.wav" id="9_4of5t"]
+[ext_resource type="AudioStream" uid="uid://dhs4fkcljsswi" path="res://audio/robot_heal.mp3" id="9_qn3qt"]
+[ext_resource type="AudioStream" uid="uid://dkosnp7bb11ak" path="res://audio/robot_death.wav" id="9_uwxe3"]
+[ext_resource type="AudioStream" uid="uid://cu50w7n24tba5" path="res://audio/robot_time.mp3" id="12_6y5g6"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uydvd"]
 resource_name = "Material.001"
@@ -326,6 +331,35 @@ text = "Health: 30"
 [node name="TextureProgressBar" type="TextureProgressBar" parent="UI/MarginContainer/VBoxContainer"]
 use_parent_material = true
 layout_mode = 2
+
+[node name="AudioUpgrade" type="AudioStreamPlayer" parent="."]
+editor_description = "https://freesound.org/people/Audionauten/sounds/448375/
+CC0"
+stream = ExtResource("8_ksm1h")
+volume_db = -5.0
+
+[node name="AudioDamage" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_4of5t")
+volume_db = -15.0
+
+[node name="AudioDeath" type="AudioStreamPlayer" parent="."]
+editor_description = "https://freesound.org/people/xkeril/sounds/715070/
+CC0"
+stream = ExtResource("9_uwxe3")
+
+[node name="AudioHeal" type="AudioStreamPlayer" parent="."]
+editor_description = "https://freesound.org/people/orginaljun/sounds/168865/
+Attribution 3.0 (Credit)
+By: orginaljun"
+stream = ExtResource("9_qn3qt")
+volume_db = -5.0
+pitch_scale = 1.1
+
+[node name="AudioTime" type="AudioStreamPlayer" parent="."]
+editor_description = "https://freesound.org/people/gjamnadas/sounds/253839/
+CC0"
+stream = ExtResource("12_6y5g6")
+volume_db = -10.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://b03wvhcgh0dd"]
+[gd_scene load_steps=15 format=3 uid="uid://b03wvhcgh0dd"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_vgch5"]
 [ext_resource type="PackedScene" uid="uid://d37wdrgeicey" path="res://scenes/floor_test.tscn" id="2_k0x7a"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://c6nuieoaf3eis" path="res://scenes/mic_transcribe_2.tscn" id="5_j7676"]
 [ext_resource type="Script" path="res://scripts/label_3d.gd" id="6_0jkmj"]
 [ext_resource type="Script" path="res://scripts/world_ui.gd" id="6_hl5vg"]
+[ext_resource type="AudioStream" uid="uid://dmlgpasx6vfnq" path="res://audio/music_retro.mp3" id="9_rg3lk"]
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_sx3va"]
 turbidity = 0.0
@@ -124,6 +125,15 @@ transform = Transform3D(1, 0, 0, 0, 0.848048, 0.529919, 0, -0.529919, 0.848048, 
 text = "DOWN"
 font_size = 100
 script = ExtResource("6_0jkmj")
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+editor_description = "https://pixabay.com/music/video-games-fun-retro-game-175468/
+
+Music by Jerome Chauvel from Pixabay"
+stream = ExtResource("9_rg3lk")
+volume_db = -60.0
+autoplay = true
+parameters/looping = true
 
 [connection signal="action" from="Player" to="Labels" method="_on_player_action"]
 [connection signal="death" from="Player" to="." method="_on_player_death"]

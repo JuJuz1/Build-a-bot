@@ -15,7 +15,7 @@ const TIME_FOR_ACTION: float = 1.0
 
 ## Time it takes to start healing, cycle length (same) and healing amount
 const TIME_FOR_HEAL: float = 2.0
-const HEAL_AMOUNT: int = 1
+const HEAL_AMOUNT: int = 2
 @onready var timer_healing: Timer = $TimerHealing
 
 ## Time action's cooldown and length
@@ -47,6 +47,13 @@ const ROBOT_MODEL_4: PackedScene = preload("res://graphics/blender/robot_model_4
 ## Dictionary to hold all the upgrade models with the corresponding "phase" of the robot
 var dict_models: Dictionary = {0: ROBOT_MODEL_0, 1: ROBOT_MODEL_1, 2: ROBOT_MODEL_2, 3: ROBOT_MODEL_3, 4: ROBOT_MODEL_4} ## Size is 5
 
+## Audio
+@onready var audio_upgrade: AudioStreamPlayer = $AudioUpgrade
+@onready var audio_heal: AudioStreamPlayer = $AudioHeal
+@onready var audio_time: AudioStreamPlayer = $AudioTime
+@onready var audio_damage: AudioStreamPlayer = $AudioDamage
+@onready var audio_death: AudioStreamPlayer = $AudioDeath
+
 func _ready() -> void:
 	$UI.update_labels(points, health)
 	timer_action.wait_time = TIME_FOR_ACTION
@@ -62,10 +69,10 @@ func _ready() -> void:
 	
 	timer_time_cooldown.wait_time = TIME_ACTION_COOLDOWN
 	
-	#health = 100
+	#health = 1
 	# TODO: comment out
 	#upgrade_points = 1
-	#model_current = 3
+	#model_current = 4
 
 
 ## Enable action to control player
@@ -77,12 +84,16 @@ func action_enable() -> void:
 ## Increase health when healing
 func heal() -> void:
 	health += HEAL_AMOUNT
-	print("healing")
+	if health > 30:
+		health = 30
 	$UI.update_labels(points, health)
+	audio_heal.play()
 
 
 ## When picking up item
 func _on_item_picked_up(item: RigidBody3D) -> void:
+	if item.health < 0:
+		audio_damage.play()
 	health += item.health
 	if health > 30:
 		health = 30
@@ -101,6 +112,7 @@ func _on_item_picked_up(item: RigidBody3D) -> void:
 		#queue_free()
 		death.emit()
 		$UI/Quit.show()
+		audio_death.play()
 	if item.robot_upgrade:
 		upgrade_points -= 1
 		if upgrade_points <= 0:
@@ -130,7 +142,11 @@ func upgrade() -> void:
 		var tween: Tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
 		tween.tween_property($Model, "scale", Vector3(1.5, 1.5, 1.5), 0.25)
 		tween.tween_property($Model, "scale", Vector3.ONE, 0.1)
-		#Audio
+		health += 10
+		if health > 30:
+			health = 30
+		$UI.update_labels(points, health)
+		audio_upgrade.play()
 	else:
 		push_warning("Couldn't instantiate model" + str(model_current))
 
@@ -138,10 +154,12 @@ func upgrade() -> void:
 ## When player gets hit by a danger
 func _on_danger_player_damaged(damage: int):
 	health -= damage
+	audio_damage.play()
 	$UI.update_labels(points, health)
 	if health <= 0:
 		death.emit()
 		$UI/Quit.show()
+		audio_death.play()
 
 
 ## Performing player character actions based on the transcribed speech to text
@@ -180,6 +198,7 @@ func _on_capture_stream_to_text_updated_player(text : String) -> void:
 			timer_time.start()
 			timer_time_cooldown.start()
 			$UI.texture_update(1, true)
+			audio_time.play()
 			print("time")
 		# Tiny model couldn't recognise this one very well
 		elif text.contains("heal") or text.contains("heel") or text.contains("here") or text.contains("healing"):
@@ -232,6 +251,7 @@ func _on_capture_stream_to_text_updated_player(text : String) -> void:
 					#queue_free()
 					death.emit()
 					$UI/Quit.show()
+					audio_death.play()
 			action.emit(action_id)
 			# Restart action timer to prevent making actions too fast
 			action_available = false

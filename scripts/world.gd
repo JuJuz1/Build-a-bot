@@ -1,6 +1,13 @@
 extends Node3D
 ## World script
 
+@onready var music: AudioStreamPlayer = $Music
+
+func _ready() -> void:
+	var tween = create_tween()
+	tween.tween_property(music, "volume_db", -20, 7)
+
+
 func _input(event) -> void:
 	# PC Escape
 	if event.is_action_pressed("restart"):

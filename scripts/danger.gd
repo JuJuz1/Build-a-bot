@@ -16,14 +16,14 @@ const DAMAGE: int = 10
 
 func _ready() -> void:
 	timer.timeout.connect(attack)
-	timer.start(20)
+	timer.start(15)
 
 
 ## Danger attack
 func attack() -> void:
 	var tween: Tween = create_tween()
 	# If danger is left (x < 0) -> goes right, if right -> goes left
-	tween.tween_property(self, "position:x", -position.x, 4)
+	tween.tween_property(self, "position:x", -position.x, 5)
 	# Move to a random "height"
 	position.z = POINTS.pick_random()
 	timer.start(randi_range(15, 20))
