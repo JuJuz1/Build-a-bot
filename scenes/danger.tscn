@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://bu2oget20cfg7"]
+
+[ext_resource type="Script" path="res://scripts/danger.gd" id="1_dqwba"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_nfayu"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uyjuy"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_iv7nf"]
+size = Vector3(1.5, 1.5, 1.5)
+
+[node name="Danger" type="Area3D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_dqwba")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+mesh = SubResource("BoxMesh_nfayu")
+surface_material_override/0 = SubResource("StandardMaterial3D_uyjuy")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_iv7nf")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

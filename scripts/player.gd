@@ -135,6 +135,15 @@ func upgrade() -> void:
 		push_warning("Couldn't instantiate model" + str(model_current))
 
 
+## When player gets hit by a danger
+func _on_danger_player_damaged(damage: int):
+	health -= damage
+	$UI.update_labels(points, health)
+	if health <= 0:
+		death.emit()
+		$UI/Quit.show()
+
+
 ## Performing player character actions based on the transcribed speech to text
 func _on_capture_stream_to_text_updated_player(text : String) -> void:
 	# Parsing and modifying the text not needed atm
