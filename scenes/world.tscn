@@ -22,10 +22,12 @@ background_mode = 2
 background_energy_multiplier = 1.5
 sky = SubResource("Sky_o4tmx")
 sky_custom_fov = 92.0
+ssr_enabled = true
+ssao_enabled = true
+ssil_enabled = true
 sdfgi_enabled = true
 sdfgi_use_occlusion = true
-volumetric_fog_density = 0.0283
-volumetric_fog_albedo = Color(0.219501, 0.219501, 0.219501, 1)
+glow_enabled = true
 
 [sub_resource type="BoxMesh" id="BoxMesh_imaev"]
 
@@ -53,7 +55,7 @@ transform = Transform3D(1, 0, 0, 0, 0.848048, 0.529919, 0, -0.529919, 0.848048, 
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, 0)
 
 [node name="Danger" parent="." instance=ExtResource("4_wopxb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 0.3, 0)
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 23, 0.3, 0)
 
 [node name="Block" type="MeshInstance3D" parent="."]
 transform = Transform3D(9, 0, 0, 0, 15, 0, 0, 0, 9, 0, -7.99687, 0)

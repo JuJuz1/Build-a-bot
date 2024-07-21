@@ -24,6 +24,9 @@ func attack() -> void:
 	var tween: Tween = create_tween()
 	# If danger is left (x < 0) -> goes right, if right -> goes left
 	tween.tween_property(self, "position:x", -position.x, 5)
+	tween.finished.connect(func() -> void:
+		rotation.z = -rotation.z
+		)
 	# Move to a random "height"
 	position.z = POINTS.pick_random()
 	timer.start(randi_range(15, 20))
