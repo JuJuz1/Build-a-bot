@@ -5,7 +5,7 @@ extends Node3D
 
 func _ready() -> void:
 	var tween = create_tween()
-	tween.tween_property(music, "volume_db", -20, 7)
+	tween.tween_property(music, "volume_db", -25, 7)
 
 
 func _input(event) -> void:
