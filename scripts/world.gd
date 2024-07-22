@@ -12,6 +12,8 @@ func _input(event) -> void:
 	# PC Escape
 	if event.is_action_pressed("restart"):
 		get_tree().quit()
+	#elif event.is_action_pressed("click"):
+		#$Camera3D.apply_shake()
 
 
 func _on_player_death() -> void:

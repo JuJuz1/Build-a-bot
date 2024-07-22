@@ -1,8 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://b03wvhcgh0dd"]
+[gd_scene load_steps=16 format=3 uid="uid://b03wvhcgh0dd"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_vgch5"]
 [ext_resource type="PackedScene" uid="uid://d37wdrgeicey" path="res://scenes/floor_test.tscn" id="2_k0x7a"]
 [ext_resource type="PackedScene" uid="uid://cfyf4okhd8q32" path="res://scenes/player.tscn" id="2_ujslp"]
+[ext_resource type="Script" path="res://scripts/camera_3d.gd" id="3_wnr7x"]
 [ext_resource type="PackedScene" uid="uid://bu2oget20cfg7" path="res://scenes/danger.tscn" id="4_wopxb"]
 [ext_resource type="PackedScene" uid="uid://cgs7ieip4qd86" path="res://scenes/item_dropper.tscn" id="5_4otuo"]
 [ext_resource type="PackedScene" uid="uid://c6nuieoaf3eis" path="res://scenes/mic_transcribe_2.tscn" id="5_j7676"]
@@ -50,6 +51,7 @@ shadow_opacity = 0.7
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.848048, 0.529919, 0, -0.529919, 0.848048, 0, 5.75768, 9.14844)
+script = ExtResource("3_wnr7x")
 
 [node name="ItemDropper" parent="." instance=ExtResource("5_4otuo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, 0)
@@ -138,6 +140,7 @@ autoplay = true
 parameters/looping = true
 
 [connection signal="action" from="Player" to="Labels" method="_on_player_action"]
+[connection signal="damage_taken" from="Player" to="Camera3D" method="apply_shake"]
 [connection signal="death" from="Player" to="." method="_on_player_death"]
 [connection signal="point_gap_reached" from="Player" to="ItemDropper" method="_on_player_point_gap_reached"]
 [connection signal="time" from="Player" to="ItemDropper" method="_on_player_time"]

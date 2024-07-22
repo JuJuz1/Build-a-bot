@@ -7,6 +7,7 @@ signal death ## Emitted to world on death
 signal action(action_id: int) ## Emitted to world/UI to flash labels on screen
 signal time(enabled: bool) ## Emitted to itemdropper when slowing down time
 signal point_gap_reached ## Emitted to itemdropper to increase difficulty
+signal damage_taken ## Emits to camera to apply shake effect
 
 ## Used to limit how many actions the player can perform in a time limit
 var action_available: bool = true
@@ -93,6 +94,7 @@ func heal() -> void:
 ## When picking up item
 func _on_item_picked_up(item: RigidBody3D) -> void:
 	if item.health < 0:
+		damage_taken.emit()
 		audio_damage.play()
 	health += item.health
 	if health > 30:
@@ -153,6 +155,7 @@ func upgrade() -> void:
 ## When player gets hit by a danger
 func _on_danger_player_damaged(damage: int):
 	health -= damage
+	damage_taken.emit()
 	audio_damage.play()
 	$UI.update_labels(points, health)
 	if health <= 0:
