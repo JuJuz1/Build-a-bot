@@ -21,6 +21,8 @@ void fragment() {
 	//COLOR = vec4(0, 0, 0, 1);
 	ALBEDO = vec3(r, g, b);
 	ALPHA = opacity;
+	METALLIC = 1.0;
+	ROUGHNESS = 0.5;
 }
 
 void light() {

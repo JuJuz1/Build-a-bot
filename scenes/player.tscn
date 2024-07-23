@@ -1,6 +1,7 @@
-[gd_scene load_steps=220 format=4 uid="uid://cfyf4okhd8q32"]
+[gd_scene load_steps=221 format=4 uid="uid://cfyf4okhd8q32"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_1tpsb"]
+[ext_resource type="Material" uid="uid://bpig4grjp57hb" path="res://materials/material_red_shader.tres" id="2_8x7sf"]
 [ext_resource type="Script" path="res://scripts/ui_player.gd" id="3_hid0y"]
 [ext_resource type="Material" uid="uid://bhem2fdr0jrrt" path="res://materials/material_unshaded.tres" id="4_5hf1d"]
 [ext_resource type="Script" path="res://scripts/texture_rect.gd" id="5_80je7"]
@@ -2517,6 +2518,7 @@ script = ExtResource("1_1tpsb")
 [node name="Cube" type="MeshInstance3D" parent="Model/robot_model_0"]
 mesh = SubResource("ArrayMesh_25yeb")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("2_8x7sf")
 
 [node name="Circle" type="MeshInstance3D" parent="Model/robot_model_0/Cube"]
 transform = Transform3D(2.86102e-07, 0, -0.8, 0, 0.402954, 0, 0.8, 0, 2.86102e-07, 0, 0.0282816, 0)

@@ -78,8 +78,8 @@ func _ready() -> void:
 	
 	#health = 1
 	# TODO: comment out
-	upgrade_points = 1
-	model_current = 1
+	#upgrade_points = 1
+	#model_current = 1
 	
 	# Timer to clear the red flash from shader
 	timer_damage.timeout.connect(flash_clear)
@@ -107,6 +107,7 @@ func set_surface_override_materials(material: ShaderMaterial) -> void:
 	mesh.set_surface_override_material(0, material)
 	for mesh_child: MeshInstance3D in mesh.get_children():
 		mesh_child.set_surface_override_material(0, material)
+	
 
 
 ## Enable action to control player
