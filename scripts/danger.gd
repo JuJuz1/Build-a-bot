@@ -16,8 +16,9 @@ const DAMAGE: int = 10
 
 func _ready() -> void:
 	timer.timeout.connect(attack)
-	timer.start(15)
-
+	#timer.start(15)
+	timer.start()
+	# TODO
 
 ## Danger attack
 func attack() -> void:
@@ -29,7 +30,8 @@ func attack() -> void:
 		)
 	# Move to a random "height"
 	position.z = POINTS.pick_random()
-	timer.start(randi_range(15, 20))
+	#timer.start(randi_range(15, 20))
+	timer.start(7)
 
 
 ## When hitting player only (should be)

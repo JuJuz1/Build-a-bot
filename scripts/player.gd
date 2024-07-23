@@ -55,6 +55,12 @@ var dict_models: Dictionary = {0: ROBOT_MODEL_0, 1: ROBOT_MODEL_1, 2: ROBOT_MODE
 @onready var audio_damage: AudioStreamPlayer = $AudioDamage
 @onready var audio_death: AudioStreamPlayer = $AudioDeath
 
+
+@onready var model: Node3D = $Model
+const MATERIAL_RED_SHADER = preload("res://materials/material_red_shader.tres")
+@onready var timer_damage: Timer = $TimerDamage
+const TIMER_DAMAGE_TIMEOUT: float = 0.3
+
 func _ready() -> void:
 	$UI.update_labels(points, health)
 	timer_action.wait_time = TIME_FOR_ACTION
@@ -72,8 +78,35 @@ func _ready() -> void:
 	
 	#health = 1
 	# TODO: comment out
-	#upgrade_points = 1
-	#model_current = 4
+	upgrade_points = 1
+	model_current = 1
+	
+	# Timer to clear the red flash from shader
+	timer_damage.timeout.connect(flash_clear)
+	timer_damage.wait_time = TIMER_DAMAGE_TIMEOUT
+	
+	#var mesh: MeshInstance3D = model.get_child(0).get_child(0)
+	#mesh.set_surface_override_material(0, MATERIAL_RED_SHADER)
+	#for mesh_child: MeshInstance3D in mesh.get_children():
+		#mesh_child.set_surface_override_material(0, MATERIAL_RED_SHADER)
+
+
+func flash_red() -> void:
+	set_surface_override_materials(MATERIAL_RED_SHADER)
+	#mesh.get_surface_override_material(0).next_pass.shader.set_shader_param("opacity", 1.0)
+	timer_damage.start()
+
+
+func flash_clear() -> void:
+	set_surface_override_materials(null)
+	#mesh.get_surface_override_material(0).next_pass.shader.set_shader_param("opacity", 0.0)
+
+
+func set_surface_override_materials(material: ShaderMaterial) -> void:
+	var mesh: MeshInstance3D = model.get_child(0).get_child(0)
+	mesh.set_surface_override_material(0, material)
+	for mesh_child: MeshInstance3D in mesh.get_children():
+		mesh_child.set_surface_override_material(0, material)
 
 
 ## Enable action to control player
@@ -95,6 +128,7 @@ func heal() -> void:
 func _on_item_picked_up(item: RigidBody3D) -> void:
 	if item.health < 0:
 		damage_taken.emit()
+		flash_red()
 		audio_damage.play()
 	health += item.health
 	if health > 30:
@@ -156,6 +190,7 @@ func upgrade() -> void:
 func _on_danger_player_damaged(damage: int):
 	health -= damage
 	damage_taken.emit()
+	flash_red()
 	audio_damage.play()
 	$UI.update_labels(points, health)
 	if health <= 0:
